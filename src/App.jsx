@@ -3,7 +3,7 @@ const App = () => {
     <div>
       <h1>RuSeek TashBoard</h1>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
