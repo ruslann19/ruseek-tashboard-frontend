@@ -1,8 +1,16 @@
+import Header from "./components/Header";
+import Navbar from "./components/Navbar";
+
 const App = () => {
   return (
-    <div>
-      <h1>RuSeek TashBoard</h1>
-    </div>
+    <>
+      <Header />
+      <hr />
+      <main className="main">
+        <Navbar />
+        <div className="main-content">Контент</div>
+      </main>
+    </>
   );
 };
 
