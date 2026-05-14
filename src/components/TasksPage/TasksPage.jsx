@@ -1,5 +1,6 @@
-import TasksFiler from "../TasksFilter";
+import ListFilter from "../ListFilter";
 import TasksList from "../TasksList/TasksList";
+import styles from "./TasksPage.module.css";
 
 const TasksPage = () => {
   const tasks = [
@@ -17,7 +18,10 @@ const TasksPage = () => {
 
   return (
     <div>
-      <TasksFiler />
+      <section className={styles.addNewTaskSection}>
+        <button>Добавить новую задачу</button>
+      </section>
+      <ListFilter />
       <TasksList tasks={tasks} />
     </div>
   );

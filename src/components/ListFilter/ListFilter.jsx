@@ -1,6 +1,6 @@
-import styles from "./TasksFilter.module.css";
+import styles from "./ListFilter.module.css";
 
-const TasksFilter = () => {
+const ListFilter = () => {
   return (
     <section className={styles.filterWrapper}>
       <span>Сортировать по:</span>
@@ -12,10 +12,8 @@ const TasksFilter = () => {
         <option value="id">id</option>
         <option value="rating">рейтинга</option>
       </select>
-
-      <button>Добавить новую задачу</button>
     </section>
   );
 };
 
-export default TasksFilter;
+export default ListFilter;
