@@ -1,0 +1,11 @@
+.navbar {
+  background-color: aliceblue;
+  min-height: 100%;
+  padding: 10px;
+}
+
+.navbarItems {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}

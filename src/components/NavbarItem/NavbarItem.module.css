@@ -1,0 +1,13 @@
+.navbarItem {
+  border-width: 2px;
+  border-style: solid;
+  cursor: pointer;
+  min-height: 30px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.isActive {
+  text-decoration: underline;
+}

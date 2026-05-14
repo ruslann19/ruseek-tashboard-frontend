@@ -1,15 +1,12 @@
 import Header from "./components/Header";
-import Navbar from "./components/Navbar";
+import Main from "./components/Main";
 
 const App = () => {
   return (
     <>
       <Header />
       <hr />
-      <main className="main">
-        <Navbar />
-        <div className="main-content">Контент</div>
-      </main>
+      <Main />
     </>
   );
 };

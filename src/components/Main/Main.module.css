@@ -1,0 +1,12 @@
+.main {
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+}
+
+.mainContent {
+  background-color: aquamarine;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
