@@ -1,3 +1,7 @@
 .textBlue {
   color: blue;
 }
+
+.header {
+  padding-inline: 20px;
+}

@@ -2,7 +2,7 @@ import styles from "./Header.module.css";
 
 const Header = () => {
   return (
-    <header>
+    <header className={styles.header}>
       <h1>
         <span className={styles.textBlue}>Ru</span>Seek{" "}
         <span className={styles.textBlue}>Tash</span>Board Admin
