@@ -1,5 +1,5 @@
 import ListFilter from "../ListFilter";
-import AddNewItemSection from "../AddNewItemSection";
+import SingleButtonSection from "../SingleButtonSection";
 import List from "../List";
 import TaskItem from "../TaskItem";
 
@@ -19,7 +19,7 @@ const TasksPage = () => {
 
   return (
     <div>
-      <AddNewItemSection buttonTitle={"Добавить новую задачу"} />
+      <SingleButtonSection buttonTitle={"Добавить новую задачу"} />
       <ListFilter />
       <List>
         {tasks.map((task) => (

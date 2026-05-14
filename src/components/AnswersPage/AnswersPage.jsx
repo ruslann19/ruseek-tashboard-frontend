@@ -1,4 +1,4 @@
-import AddNewItemSection from "../AddNewItemSection/AddNewItemSection";
+import SingleButtonSection from "../SingleButtonSection";
 import ListFilter from "../ListFilter";
 import List from "../List/List";
 import AnswerItem from "../AnswerItem/AnswerItem";
@@ -12,7 +12,7 @@ const AnswersPage = () => {
 
   return (
     <section>
-      <AddNewItemSection buttonTitle={"Добавить новый ответ"} />
+      <SingleButtonSection buttonTitle={"Добавить новый ответ"} />
       <ListFilter />
       <List>
         {answers.map((answer) => (

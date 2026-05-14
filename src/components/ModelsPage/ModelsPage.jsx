@@ -1,5 +1,5 @@
 import ListFilter from "../ListFilter";
-import AddNewItemSection from "../AddNewItemSection/AddNewItemSection";
+import SingleButtonSection from "../SingleButtonSection";
 import List from "../List";
 import ModelItem from "../ModelItem";
 
@@ -13,7 +13,7 @@ const ModelsPage = () => {
 
   return (
     <section>
-      <AddNewItemSection buttonTitle={"Добавить новую модель"} />
+      <SingleButtonSection buttonTitle={"Добавить новую модель"} />
       <ListFilter />
       <List>
         {models.map((model) => (

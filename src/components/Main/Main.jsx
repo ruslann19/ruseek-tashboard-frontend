@@ -3,6 +3,7 @@ import styles from "./Main.module.css";
 import TasksPage from "../TasksPage";
 import ModelsPage from "../ModelsPage";
 import AnswersPage from "../AnswersPage";
+import TestModelsPage from "../TestModelsPage";
 
 const Main = () => {
   return (
@@ -11,7 +12,8 @@ const Main = () => {
       <div className={styles.mainContent}>
         {/* <TasksPage /> */}
         {/* <ModelsPage /> */}
-        <AnswersPage />
+        {/* <AnswersPage /> */}
+        <TestModelsPage />
       </div>
     </main>
   );
