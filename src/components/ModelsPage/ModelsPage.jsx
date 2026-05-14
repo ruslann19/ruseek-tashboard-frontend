@@ -1,6 +1,7 @@
 import ListFilter from "../ListFilter";
-import ModelsList from "../ModelsList";
-import styles from "./ModelsPage.module.css";
+import AddNewItemSection from "../AddNewItemSection/AddNewItemSection";
+import List from "../List";
+import ModelItem from "../ModelItem";
 
 const ModelsPage = () => {
   const models = [
@@ -12,11 +13,14 @@ const ModelsPage = () => {
 
   return (
     <section>
-      <section className={styles.addNewModelSection}>
-        <button>Добавить новую модель</button>
-      </section>
+      <AddNewItemSection buttonTitle={"Добавить новую модель"} />
       <ListFilter />
-      <ModelsList models={models} />
+      <List>
+        {models.map((model) => (
+          <ModelItem key={model.id} id={model.id} name={model.name} />
+        ))}
+      </List>
+      {/* <ModelsList models={models} /> */}
     </section>
   );
 };

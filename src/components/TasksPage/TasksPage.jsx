@@ -1,6 +1,7 @@
 import ListFilter from "../ListFilter";
-import TasksList from "../TasksList/TasksList";
-import styles from "./TasksPage.module.css";
+import AddNewItemSection from "../AddNewItemSection";
+import List from "../List";
+import TaskItem from "../TaskItem";
 
 const TasksPage = () => {
   const tasks = [
@@ -18,11 +19,18 @@ const TasksPage = () => {
 
   return (
     <div>
-      <section className={styles.addNewTaskSection}>
-        <button>Добавить новую задачу</button>
-      </section>
+      <AddNewItemSection buttonTitle={"Добавить новую задачу"} />
       <ListFilter />
-      <TasksList tasks={tasks} />
+      <List>
+        {tasks.map((task) => (
+          <TaskItem
+            key={task.id}
+            id={task.id}
+            question={task.question}
+            answer={task.answer}
+          />
+        ))}
+      </List>
     </div>
   );
 };

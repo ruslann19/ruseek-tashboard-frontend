@@ -2,6 +2,7 @@ import Navbar from "../Navbar";
 import styles from "./Main.module.css";
 import TasksPage from "../TasksPage";
 import ModelsPage from "../ModelsPage";
+import AnswersPage from "../AnswersPage";
 
 const Main = () => {
   return (
@@ -9,7 +10,8 @@ const Main = () => {
       <Navbar />
       <div className={styles.mainContent}>
         {/* <TasksPage /> */}
-        <ModelsPage />
+        {/* <ModelsPage /> */}
+        <AnswersPage />
       </div>
     </main>
   );

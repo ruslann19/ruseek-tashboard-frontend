@@ -1,0 +1,6 @@
+.addNewItemSection {
+  background-color: bisque;
+  padding: 10px;
+  justify-content: center;
+  display: flex;
+}
