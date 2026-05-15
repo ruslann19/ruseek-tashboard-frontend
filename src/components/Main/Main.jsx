@@ -30,7 +30,10 @@ const Main = () => {
 
   return (
     <main className={styles.main}>
-      <Navbar onClickNavbarItem={onClickNavbarItem} />
+      <Navbar
+        activeNavbarItem={activeNavbarItem}
+        onClickNavbarItem={onClickNavbarItem}
+      />
       <div className={styles.mainContent}>{mainContent}</div>
     </main>
   );

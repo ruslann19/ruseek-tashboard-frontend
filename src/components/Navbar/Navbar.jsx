@@ -2,7 +2,7 @@ import NavbarItem from "../NavbarItem/NavbarItem";
 import styles from "./Navbar.module.css";
 
 const Navbar = (props) => {
-  const { onClickNavbarItem } = props;
+  const { activeNavbarItem, onClickNavbarItem } = props;
 
   const navbarItems = ["Tasks", "Models", "Answers", "Test models"];
 
@@ -15,6 +15,7 @@ const Navbar = (props) => {
             id={item}
             title={item}
             onClickNavbarItem={onClickNavbarItem}
+            isActive={item === activeNavbarItem}
           />
         ))}
       </ul>
