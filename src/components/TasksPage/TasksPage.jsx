@@ -52,6 +52,16 @@ const TasksPage = (props) => {
     setTasks([...tasks, task]);
   };
 
+  const deleteTask = (taskId) => {
+    const isConfirmed = confirm(
+      `Вы уверены, что хотите удалить задачу (id: ${taskId})?`,
+    );
+
+    if (isConfirmed) {
+      setTasks(tasks.filter((task) => task.id !== taskId));
+    }
+  };
+
   return (
     <div>
       <AddNewTask addNewTask={addNewTask} />
@@ -63,7 +73,8 @@ const TasksPage = (props) => {
             id={task.id}
             question={task.question}
             answer={task.answer}
-            onClick={onClickTask(task)}
+            // onClick={onClickTask(task)}
+            deleteTask={deleteTask}
           />
         ))}
       </List>

@@ -1,7 +1,6 @@
 .filterWrapper {
   width: 100%;
-  border-style: solid;
-  border-width: 2px;
+  background-color: lightgrey;
   display: flex;
   gap: 10px;
   padding: 10px;
