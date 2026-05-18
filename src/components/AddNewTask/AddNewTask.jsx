@@ -1,0 +1,75 @@
+import { useState } from "react";
+import styles from "./AddNewTask.module.css";
+
+const AddNewTask = (props) => {
+  const { addNewTask } = props;
+
+  const [newQuestion, setNewQuestion] = useState("");
+  const [newCorrectAnswer, setNewCorrectAnswer] = useState("");
+
+  const onAdd = () => {
+    if (
+      newQuestion.trim().length === 0 ||
+      newCorrectAnswer.trim().length === 0
+    ) {
+      return;
+    }
+
+    const newTask = {
+      id: crypto?.randomUUID() ?? Date.now().toString(),
+      question: newQuestion,
+      answer: newCorrectAnswer,
+    };
+
+    addNewTask(newTask);
+
+    setNewQuestion("");
+    setNewCorrectAnswer("");
+  };
+
+  return (
+    <form
+      action="post"
+      className={styles.addTaskForm}
+      onSubmit={(event) => {
+        event.preventDefault();
+      }}
+    >
+      <div className={styles.inputWrapper}>
+        <label htmlFor="question">Question</label>
+        <input
+          type="text"
+          autoComplete="off"
+          name="question"
+          id="question"
+          placeholder="Question"
+          value={newQuestion}
+          onInput={(event) => {
+            setNewQuestion(event.target.value);
+          }}
+        />
+      </div>
+
+      <div className={styles.inputWrapper}>
+        <label htmlFor="correct_answer">Correct answer</label>
+        <input
+          type="text"
+          autoComplete="off"
+          name="correct_answer"
+          id="correct_answer"
+          placeholder="Correct answer"
+          value={newCorrectAnswer}
+          onInput={(event) => {
+            setNewCorrectAnswer(event.target.value);
+          }}
+        />
+      </div>
+
+      <div>
+        <button onClick={onAdd}>Добавить новую задачу</button>
+      </div>
+    </form>
+  );
+};
+
+export default AddNewTask;

@@ -1,8 +1,15 @@
 import styles from "./ListFilter.module.css";
 
-const ListFilter = () => {
+const ListFilter = (props) => {
+  const { searchQuery, setSearchQuery } = props;
+
   return (
-    <section className={styles.filterWrapper}>
+    <form
+      className={styles.filterWrapper}
+      onSubmit={(event) => {
+        event.preventDefault();
+      }}
+    >
       <span>Сортировать по:</span>
       <select name="direction" id="direction">
         <option value="increase">убыванию</option>
@@ -12,7 +19,17 @@ const ListFilter = () => {
         <option value="id">id</option>
         <option value="rating">рейтинга</option>
       </select>
-    </section>
+      <input
+        type="text"
+        name="search"
+        id="search"
+        placeholder="Search"
+        value={searchQuery}
+        onInput={(event) => {
+          setSearchQuery(event.target.value);
+        }}
+      />
+    </form>
   );
 };
 

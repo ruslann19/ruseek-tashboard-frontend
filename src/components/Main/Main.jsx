@@ -5,27 +5,34 @@ import ModelsPage from "../ModelsPage";
 import AnswersPage from "../AnswersPage";
 import TestModelsPage from "../TestModelsPage";
 import { useState } from "react";
-
-const createMainContent = (activeNavbarItem) => {
-  switch (activeNavbarItem) {
-    case "Models":
-      return <ModelsPage />;
-    case "Tasks":
-      return <TasksPage />;
-    case "Answers":
-      return <AnswersPage />;
-    case "Test models":
-      return <TestModelsPage />;
-  }
-};
+import TaskPage from "../TaskPage/TaskPage";
 
 const Main = () => {
   const [activeNavbarItem, setActiveNavbarItem] = useState("Tasks");
+  const [activePage, setActivePage] = useState("Tasks");
 
-  const mainContent = createMainContent(activeNavbarItem);
+  console.log("activePage:", activePage);
+
+  const createMainContent = (activePage) => {
+    switch (activePage) {
+      case "Tasks":
+        return <TasksPage setActivePage={setActivePage} />;
+      case "Task":
+        console.log("here");
+        return <TaskPage id={1} question={"Как дела?"} answer={"Нормально"} />;
+      case "Answers":
+        return <AnswersPage />;
+      case "Models":
+        return <ModelsPage />;
+      case "Test models":
+        return <TestModelsPage />;
+    }
+  };
+  const mainContent = createMainContent(activePage);
 
   const onClickNavbarItem = (navbarItem) => {
     setActiveNavbarItem(navbarItem);
+    setActivePage(navbarItem);
   };
 
   return (
