@@ -6,17 +6,20 @@ import AnswersPage from "../AnswersPage";
 import TestModelsPage from "../TestModelsPage";
 import { useState } from "react";
 import TaskPage from "../TaskPage/TaskPage";
+import { TasksProvider } from "../../context/TasksContext";
 
 const Main = () => {
   const [activeNavbarItem, setActiveNavbarItem] = useState("Tasks");
   const [activePage, setActivePage] = useState("Tasks");
 
-  console.log("activePage:", activePage);
-
   const createMainContent = (activePage) => {
     switch (activePage) {
       case "Tasks":
-        return <TasksPage setActivePage={setActivePage} />;
+        return (
+          <TasksProvider>
+            <TasksPage setActivePage={setActivePage} />
+          </TasksProvider>
+        );
       case "Task":
         console.log("here");
         return <TaskPage id={1} question={"Как дела?"} answer={"Нормально"} />;

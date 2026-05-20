@@ -1,7 +1,11 @@
+import { useContext } from "react";
 import styles from "./TaskItem.module.css";
+import { TasksContext } from "../../context/TasksContext";
 
 const TaskItem = (props) => {
-  const { id, question, answer, deleteTask } = props;
+  const { id, question, answer } = props;
+
+  const { deleteTask } = useContext(TasksContext);
 
   return (
     <div key={id} className={styles.taskItem}>

@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import styles from "./AddNewTask.module.css";
+import { TasksContext } from "../../context/TasksContext";
 
-const AddNewTask = (props) => {
-  const { addNewTask } = props;
+const AddNewTask = () => {
+  const { addNewTask } = useContext(TasksContext);
 
   const [newQuestion, setNewQuestion] = useState("");
   const [newCorrectAnswer, setNewCorrectAnswer] = useState("");

@@ -1,7 +1,9 @@
+import { useContext } from "react";
 import styles from "./ListFilter.module.css";
+import { TasksContext } from "../../context/TasksContext";
 
-const ListFilter = (props) => {
-  const { searchQuery, setSearchQuery } = props;
+const ListFilter = () => {
+  const { searchQuery, setSearchQuery } = useContext(TasksContext);
 
   return (
     <form
