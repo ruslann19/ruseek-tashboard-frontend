@@ -18,7 +18,7 @@ const TasksPage = () => {
             key={task.id}
             id={task.id}
             question={task.question}
-            answer={task.answer}
+            correct_answer={task.correct_answer}
           />
         ))}
       </List>

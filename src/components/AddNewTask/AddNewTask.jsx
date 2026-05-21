@@ -8,7 +8,7 @@ const AddNewTask = () => {
   const [newQuestion, setNewQuestion] = useState("");
   const [newCorrectAnswer, setNewCorrectAnswer] = useState("");
 
-  const onAdd = () => {
+  const onAdd = async () => {
     if (
       newQuestion.trim().length === 0 ||
       newCorrectAnswer.trim().length === 0
@@ -17,12 +17,11 @@ const AddNewTask = () => {
     }
 
     const newTask = {
-      id: crypto?.randomUUID() ?? Date.now().toString(),
       question: newQuestion,
-      answer: newCorrectAnswer,
+      correct_answer: newCorrectAnswer,
     };
 
-    addNewTask(newTask);
+    await addNewTask(newTask);
 
     setNewQuestion("");
     setNewCorrectAnswer("");

@@ -1,14 +1,21 @@
 import { useState, useEffect } from "react";
-import useTasksLocalStorage from "./useTasksLocalStorage";
+import tasksAPI from "../api/tasksAPI";
 
 const useTasks = () => {
-  const { savedTasks, saveTasks } = useTasksLocalStorage();
-
-  const [tasks, setTasks] = useState(savedTasks ?? []);
+  const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    saveTasks(tasks);
-  }, [tasks, saveTasks]);
+    const fetchData = async () => {
+      try {
+        const loadedTasks = await tasksAPI.getAll();
+        setTasks(loadedTasks);
+      } catch (error) {
+        console.error("Ошибка при загрузке:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   let emptyListMessage = null;
   if (tasks.length === 0) {
@@ -30,16 +37,22 @@ const useTasks = () => {
     }
   }
 
-  const addNewTask = (task) => {
-    setTasks([...tasks, task]);
+  const addNewTask = async (task) => {
+    try {
+      const addedTask = await tasksAPI.add(task);
+      setTasks([...tasks, addedTask]);
+    } catch (error) {
+      console.log("Ошибка при добавлении задачи:", error);
+    }
   };
 
-  const deleteTask = (taskId) => {
+  const deleteTask = async (taskId) => {
     const isConfirmed = confirm(
       `Вы уверены, что хотите удалить задачу (id: ${taskId})?`,
     );
 
     if (isConfirmed) {
+      await tasksAPI.delete(taskId);
       setTasks(tasks.filter((task) => task.id !== taskId));
     }
   };

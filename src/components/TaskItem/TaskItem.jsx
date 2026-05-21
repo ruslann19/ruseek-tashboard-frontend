@@ -3,7 +3,7 @@ import styles from "./TaskItem.module.css";
 import { TasksContext } from "../../context/TasksContext";
 
 const TaskItem = (props) => {
-  const { id, question, answer } = props;
+  const { id, question, correct_answer } = props;
 
   const { deleteTask } = useContext(TasksContext);
 
@@ -11,7 +11,7 @@ const TaskItem = (props) => {
     <div key={id} className={styles.taskItem}>
       <div>id: {id}</div>
       <div>question: {question}</div>
-      <div>answer: {answer}</div>
+      <div>correct_answer: {correct_answer}</div>
       <button
         onClick={(event) => {
           event.preventDefault();
