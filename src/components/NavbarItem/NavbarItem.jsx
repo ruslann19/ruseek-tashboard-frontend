@@ -1,17 +1,19 @@
 import styles from "./NavbarItem.module.css";
+import navigate from "../../shared/navigate";
 
 const NavbarItem = (props) => {
-  const { id, title, onClickNavbarItem, isActive } = props;
+  const { id, title, redirectTo, onClickNavbarItem, isActive } = props;
 
-  const onClick = () => {
+  const handleClick = () => {
     onClickNavbarItem(title);
+    navigate(redirectTo);
   };
 
   return (
     <li
       key={id}
       className={`${styles.navbarItem} ${isActive ? styles.isActive : ""}`}
-      onClick={onClick}
+      onClick={handleClick}
     >
       {title}
     </li>

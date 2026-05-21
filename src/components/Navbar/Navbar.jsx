@@ -4,7 +4,24 @@ import styles from "./Navbar.module.css";
 const Navbar = (props) => {
   const { activeNavbarItem, onClickNavbarItem } = props;
 
-  const navbarItems = ["Tasks", "Models", "Answers", "Test models"];
+  const navbarItems = [
+    {
+      title: "Tasks",
+      redirectTo: "/tasks",
+    },
+    {
+      title: "Models",
+      redirectTo: "/models",
+    },
+    {
+      title: "Answers",
+      redirectTo: "/answers",
+    },
+    {
+      title: "Test models",
+      redirectTo: "/test-models",
+    },
+  ];
 
   return (
     <nav className={styles.navbar}>
@@ -13,9 +30,10 @@ const Navbar = (props) => {
           <NavbarItem
             key={item}
             id={item}
-            title={item}
+            title={item.title}
+            redirectTo={item.redirectTo}
             onClickNavbarItem={onClickNavbarItem}
-            isActive={item === activeNavbarItem}
+            isActive={item.title === activeNavbarItem}
           />
         ))}
       </ul>

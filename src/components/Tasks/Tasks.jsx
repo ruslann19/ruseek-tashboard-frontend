@@ -1,11 +1,11 @@
+import { useContext } from "react";
+import { TasksContext } from "../../context/TasksContext";
+import AddNewTask from "../AddNewTask";
 import ListFilter from "../ListFilter";
 import List from "../List";
 import TaskItem from "../TaskItem";
-import AddNewTask from "../AddNewTask";
-import { TasksContext } from "../../context/TasksContext";
-import { useContext } from "react";
 
-const TasksPage = () => {
+const Tasks = () => {
   const { emptyListMessage, displayedTasks } = useContext(TasksContext);
 
   return (
@@ -26,4 +26,4 @@ const TasksPage = () => {
   );
 };
 
-export default TasksPage;
+export default Tasks;

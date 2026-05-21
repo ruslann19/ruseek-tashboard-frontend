@@ -14,6 +14,16 @@ const tasksAPI = {
     }
   },
 
+  getById: async (taskId) => {
+    try {
+      const response = await fetch(`${API_URL}/${taskId}`);
+      const task = await response.json();
+      return task;
+    } catch (error) {
+      console.error("Ошибка при загрузке задачи:", error);
+    }
+  },
+
   add: async (task) => {
     try {
       const response = await fetch(API_URL, {
