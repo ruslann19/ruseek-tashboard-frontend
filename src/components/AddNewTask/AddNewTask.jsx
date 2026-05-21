@@ -37,7 +37,7 @@ const AddNewTask = () => {
     >
       <div className={styles.inputWrapper}>
         <label htmlFor="question">Question</label>
-        <input
+        <textarea
           type="text"
           autoComplete="off"
           name="question"
@@ -52,7 +52,7 @@ const AddNewTask = () => {
 
       <div className={styles.inputWrapper}>
         <label htmlFor="correct_answer">Correct answer</label>
-        <input
+        <textarea
           type="text"
           autoComplete="off"
           name="correct_answer"

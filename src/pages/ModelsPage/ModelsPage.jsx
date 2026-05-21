@@ -1,7 +1,7 @@
-import ListFilter from "../ListFilter";
-import SingleButtonSection from "../SingleButtonSection";
-import List from "../List";
-import ModelItem from "../ModelItem";
+import ListFilter from "../../components/ListFilter";
+import SingleButtonSection from "../../components/SingleButtonSection";
+import List from "../../components/List";
+import ModelItem from "../../components/ModelItem";
 
 const ModelsPage = () => {
   const models = [
@@ -10,6 +10,8 @@ const ModelsPage = () => {
     { id: 3, name: "DeepSeek" },
     { id: 4, name: "Gemini" },
   ];
+
+  console.log("models:", models);
 
   return (
     <section>
@@ -20,7 +22,6 @@ const ModelsPage = () => {
           <ModelItem key={model.id} id={model.id} name={model.name} />
         ))}
       </List>
-      {/* <ModelsList models={models} /> */}
     </section>
   );
 };

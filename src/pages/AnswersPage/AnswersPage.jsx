@@ -1,7 +1,7 @@
-import SingleButtonSection from "../SingleButtonSection";
-import ListFilter from "../ListFilter";
-import List from "../List/List";
-import AnswerItem from "../AnswerItem/AnswerItem";
+import SingleButtonSection from "../../components/SingleButtonSection";
+import ListFilter from "../../components/ListFilter";
+import List from "../../components/List";
+import AnswerItem from "../../components/AnswerItem";
 
 const AnswersPage = () => {
   const answers = [

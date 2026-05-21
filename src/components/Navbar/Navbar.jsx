@@ -1,35 +1,50 @@
+import { useState } from "react";
 import NavbarItem from "../NavbarItem/NavbarItem";
 import styles from "./Navbar.module.css";
 
-const Navbar = (props) => {
-  const { activeNavbarItem, onClickNavbarItem } = props;
+const navbarItems = [
+  {
+    title: "Tasks",
+    redirectTo: "/tasks",
+  },
+  {
+    title: "Models",
+    redirectTo: "/models",
+  },
+  {
+    title: "Answers",
+    redirectTo: "/answers",
+  },
+  {
+    title: "Test models",
+    redirectTo: "/test-models",
+  },
+];
 
-  const navbarItems = [
-    {
-      title: "Tasks",
-      redirectTo: "/tasks",
-    },
-    {
-      title: "Models",
-      redirectTo: "/models",
-    },
-    {
-      title: "Answers",
-      redirectTo: "/answers",
-    },
-    {
-      title: "Test models",
-      redirectTo: "/test-models",
-    },
-  ];
+const Navbar = () => {
+  let currentItem = null;
+  const pathname = window.location.pathname;
+
+  for (const item of navbarItems) {
+    if (pathname.startsWith(item.redirectTo)) {
+      currentItem = item.title;
+      break;
+    }
+  }
+
+  const [activeNavbarItem, setActiveNavbarItem] = useState(currentItem);
+
+  const onClickNavbarItem = (navbarItem) => {
+    setActiveNavbarItem(navbarItem);
+  };
 
   return (
     <nav className={styles.navbar}>
       <ul className={styles.navbarItems}>
         {navbarItems.map((item) => (
           <NavbarItem
-            key={item}
-            id={item}
+            key={item.redirectTo}
+            id={item.redirectTo}
             title={item.title}
             redirectTo={item.redirectTo}
             onClickNavbarItem={onClickNavbarItem}
