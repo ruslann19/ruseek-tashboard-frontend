@@ -1,5 +1,5 @@
-import Tasks from "../../components/Tasks";
-import { TasksProvider } from "../../context/TasksContext";
+import Tasks from "@/widgets/Tasks";
+import { TasksProvider } from "@/entities/task";
 
 const TasksPage = () => {
   return (

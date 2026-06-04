@@ -1,7 +1,7 @@
-import ListFilter from "../../components/ListFilter";
-import SingleButtonSection from "../../components/SingleButtonSection";
-import List from "../../components/List";
-import ModelItem from "../../components/ModelItem";
+import ListFilter from "@/features/filter-list";
+import SingleButtonSection from "@/shared/ui/SingleButtonSection";
+import List from "@/shared/ui/List";
+import ModelItem from "@/entities/model";
 
 const ModelsPage = () => {
   const models = [
@@ -10,8 +10,6 @@ const ModelsPage = () => {
     { id: 3, name: "DeepSeek" },
     { id: 4, name: "Gemini" },
   ];
-
-  console.log("models:", models);
 
   return (
     <section>
