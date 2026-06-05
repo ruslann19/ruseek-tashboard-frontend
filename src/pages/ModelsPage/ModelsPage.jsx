@@ -14,7 +14,7 @@ const ModelsPage = () => {
   return (
     <section>
       <SingleButtonSection buttonTitle={"Добавить новую модель"} />
-      <ListFilter />
+      <ListFilter sortingFields={[]} />
       <List>
         {models.map((model) => (
           <ModelItem key={model.id} id={model.id} name={model.name} />

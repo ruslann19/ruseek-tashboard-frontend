@@ -7,6 +7,7 @@ import Header from "@/widgets/Header";
 import ModelsPage from "@/pages/ModelsPage";
 import AnswersPage from "@/pages/AnswersPage/AnswersPage";
 import TestModelsPage from "@/pages/TestModelsPage";
+import styles from "./App.module.css";
 import "./styles";
 
 const App = () => {
@@ -21,13 +22,13 @@ const App = () => {
   };
 
   return (
-    <>
+    <div className={styles.wrapper}>
       <Header />
       <hr />
       <Main>
         <Router routes={routes} />
       </Main>
-    </>
+    </div>
   );
 };
 

@@ -1,0 +1,15 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.wrapper hr {
+  width: 100%;
+  flex-shrink: 0; /* Запрещает flex-контейнеру сжимать линию до 0 */
+
+  /* На случай, если Tailwind или Reset.css сбросили дефолтные стили линии: */
+  border: none;
+  border-top: 1px solid black;
+  margin: 0;
+}

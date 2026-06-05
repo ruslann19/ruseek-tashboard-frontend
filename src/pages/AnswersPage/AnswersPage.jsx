@@ -13,7 +13,7 @@ const AnswersPage = () => {
   return (
     <section>
       <SingleButtonSection buttonTitle={"Добавить новый ответ"} />
-      <ListFilter />
+      <ListFilter sortingFields={[]} />
       <List>
         {answers.map((answer) => (
           <AnswerItem
