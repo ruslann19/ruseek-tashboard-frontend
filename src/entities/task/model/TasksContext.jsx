@@ -18,7 +18,7 @@ export const TasksProvider = (props) => {
     clearSearchQuery,
     displayedTasks,
     emptyListMessage,
-    addNewTask,
+    addTask,
     deleteTask,
     updateTask,
   } = useTasks();
@@ -37,7 +37,7 @@ export const TasksProvider = (props) => {
         clearSearchQuery,
         displayedTasks,
         emptyListMessage,
-        addNewTask,
+        addTask,
         deleteTask,
         updateTask,
       }}

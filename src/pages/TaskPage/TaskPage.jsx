@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import tasksAPI from "@/shared/api/tasks";
 import Textarea from "@/shared/ui/Textarea/Textarea";
+import Input from "@/shared/ui/Input/Input";
 import { useContext } from "react";
 import { TasksContext, TasksProvider } from "@/entities/task";
 import navigate from "@/shared/hooks/navigate";
@@ -17,15 +18,31 @@ const ChildComponent = (props) => {
   const [question, setQuestion] = useState("");
   const [correctAnswer, setCorrectAnswer] = useState("");
 
+  const options = {
+    timeZone: "Europe/Moscow",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  };
+  const ruDate = new Date().toLocaleString("ru-RU", options);
+  const todayInMoscow = ruDate.split(".").reverse().join("-");
+
+  const [publishedDate, setPublishedDate] = useState(todayInMoscow);
+  const [sourceUrl, setSourceUrl] = useState("");
+
   const { deleteTask, updateTask } = useContext(TasksContext);
 
   useEffect(() => {
     const loadTask = async () => {
       try {
         const loadedTask = await tasksAPI.getById(taskId);
+
         setTask(loadedTask);
         setQuestion(loadedTask.question);
         setCorrectAnswer(loadedTask.correct_answer);
+        setPublishedDate(loadedTask.published_date);
+        setSourceUrl(loadedTask.source_url);
+
         setHasError(false);
       } catch {
         setHasError(true);
@@ -52,6 +69,8 @@ const ChildComponent = (props) => {
       ...task,
       question: question.trim(),
       correct_answer: correctAnswer.trim(),
+      published_date: publishedDate,
+      source_url: sourceUrl.trim(),
     };
 
     updateTask(updatedTask);
@@ -59,12 +78,16 @@ const ChildComponent = (props) => {
     setTask(updatedTask);
     setQuestion(updatedTask.question);
     setCorrectAnswer(updatedTask.correct_answer);
+    setPublishedDate(updatedTask.published_date);
+    setSourceUrl(updatedTask.source_url);
   };
 
   const onCancel = (event) => {
     event.preventDefault();
     setQuestion(task.question);
     setCorrectAnswer(task.correct_answer);
+    setPublishedDate(task.published_date);
+    setSourceUrl(task.source_url);
   };
 
   const onDelete = (event) => {
@@ -88,6 +111,19 @@ const ChildComponent = (props) => {
         setValue={setCorrectAnswer}
         label="Correct answer"
       />
+      <Input
+        type={"date"}
+        value={publishedDate}
+        setValue={setPublishedDate}
+        label={"Published date"}
+      />
+      <Input
+        type={"text"}
+        value={sourceUrl}
+        setValue={setSourceUrl}
+        label={"Source URL"}
+      />
+
       <div className={styles.buttonsWrapper}>
         <button onClick={onSave}>Сохранить</button>
         <button onClick={onCancel}>Отмена</button>

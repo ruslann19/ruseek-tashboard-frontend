@@ -1,1 +1,1 @@
-export { default } from "./AddNewTask";
+export { default } from "./AddTask";

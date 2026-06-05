@@ -58,7 +58,7 @@ const useTasks = () => {
     }
   }
 
-  const addNewTask = async (task) => {
+  const addTask = async (task) => {
     const addedTask = await tasksAPI.add(task);
     setTasks([...tasks, addedTask]);
   };
@@ -90,7 +90,7 @@ const useTasks = () => {
     clearSearchQuery,
     displayedTasks,
     emptyListMessage,
-    addNewTask,
+    addTask,
     deleteTask,
     updateTask,
   };

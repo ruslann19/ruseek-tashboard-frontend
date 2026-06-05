@@ -1,0 +1,10 @@
+.inputWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  width: 100%;
+}
+
+.input {
+  width: 50%;
+}
