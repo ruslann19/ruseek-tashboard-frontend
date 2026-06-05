@@ -29,7 +29,7 @@ const useTasks = () => {
     const fetchData = async () => {
       try {
         const loadedTasks = await tasksAPI.getAll();
-        setTasks(loadedTasks);
+        setTasks(loadedTasks || []);
       } catch (error) {
         console.error("Ошибка при загрузке:", error);
       }
