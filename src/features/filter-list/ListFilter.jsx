@@ -23,6 +23,7 @@ const ListFilter = () => {
       </select>
       <input
         type="text"
+        autoComplete="off"
         name="search"
         id="search"
         placeholder="Search"

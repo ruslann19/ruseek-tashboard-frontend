@@ -16,6 +16,7 @@ export const TasksProvider = (props) => {
     emptyListMessage,
     addNewTask,
     deleteTask,
+    updateTask,
   } = useTasks();
 
   return (
@@ -30,6 +31,7 @@ export const TasksProvider = (props) => {
         emptyListMessage,
         addNewTask,
         deleteTask,
+        updateTask,
       }}
     >
       {children}

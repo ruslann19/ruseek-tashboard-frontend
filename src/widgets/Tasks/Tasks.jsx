@@ -1,7 +1,5 @@
 import { useContext } from "react";
 import { TasksContext } from "@/entities/task";
-import AddNewTask from "@/features/add-task";
-import ListFilter from "@/features/filter-list";
 import List from "@/shared/ui/List";
 import TaskItem from "@/entities/task";
 
@@ -10,8 +8,6 @@ const Tasks = () => {
 
   return (
     <div>
-      <AddNewTask />
-      <ListFilter />
       <List emptyListMessage={emptyListMessage}>
         {displayedTasks.map((task) => (
           <TaskItem

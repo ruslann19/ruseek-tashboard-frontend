@@ -49,6 +49,18 @@ const tasksAPI = {
       console.log("Ошибка при удалении задачи:", error);
     }
   },
+
+  put: async (task) => {
+    try {
+      await fetch(`${API_URL}/${task.id}`, {
+        method: "PUT",
+        headers: HEADERS,
+        body: JSON.stringify(task),
+      });
+    } catch (error) {
+      console.log("Ошибка при изменении задачи:", error);
+    }
+  },
 };
 
 export default tasksAPI;

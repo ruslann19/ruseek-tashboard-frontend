@@ -38,24 +38,23 @@ const useTasks = () => {
   }
 
   const addNewTask = async (task) => {
-    try {
-      const addedTask = await tasksAPI.add(task);
-      setTasks([...tasks, addedTask]);
-    } catch (error) {
-      console.log("Ошибка при добавлении задачи:", error);
-    }
+    const addedTask = await tasksAPI.add(task);
+    setTasks([...tasks, addedTask]);
   };
 
   const deleteTask = async (taskId) => {
-    // const isConfirmed = confirm(
-    //   `Вы уверены, что хотите удалить задачу (id: ${taskId})?`,
-    // );
-    const isConfirmed = true;
+    await tasksAPI.delete(taskId);
+    setTasks(tasks.filter((task) => task.id !== taskId));
+  };
 
-    if (isConfirmed) {
-      await tasksAPI.delete(taskId);
-      setTasks(tasks.filter((task) => task.id !== taskId));
-    }
+  const updateTask = async (updatedTask) => {
+    await tasksAPI.put(updatedTask);
+
+    const updatedTasks = tasks.map((item) =>
+      item.id === updatedTask.id ? updatedTask : item,
+    );
+
+    setTasks(updatedTasks);
   };
 
   return {
@@ -68,6 +67,7 @@ const useTasks = () => {
     emptyListMessage,
     addNewTask,
     deleteTask,
+    updateTask,
   };
 };
 

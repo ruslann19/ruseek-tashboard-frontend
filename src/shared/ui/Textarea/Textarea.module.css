@@ -1,0 +1,10 @@
+.textareaWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  width: 100%;
+}
+
+.textareaInput {
+  width: 50%;
+}

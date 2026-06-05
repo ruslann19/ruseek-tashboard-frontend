@@ -1,0 +1,13 @@
+.taskPageContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+}
+
+.buttonsWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  padding: 10px;
+}

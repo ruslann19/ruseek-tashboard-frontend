@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
-import styles from "./AddNewTask.module.css";
 import { TasksContext } from "@/entities/task";
+import Textarea from "@/shared/ui/Textarea";
+import styles from "./AddNewTask.module.css";
 
 const AddNewTask = () => {
   const { addNewTask } = useContext(TasksContext);
@@ -35,36 +36,16 @@ const AddNewTask = () => {
         event.preventDefault();
       }}
     >
-      <div className={styles.inputWrapper}>
-        <label htmlFor="question">Question</label>
-        <textarea
-          type="text"
-          autoComplete="off"
-          name="question"
-          id="question"
-          placeholder="Question"
-          value={newQuestion}
-          onInput={(event) => {
-            setNewQuestion(event.target.value);
-          }}
-        />
-      </div>
-
-      <div className={styles.inputWrapper}>
-        <label htmlFor="correct_answer">Correct answer</label>
-        <textarea
-          type="text"
-          autoComplete="off"
-          name="correct_answer"
-          id="correct_answer"
-          placeholder="Correct answer"
-          value={newCorrectAnswer}
-          onInput={(event) => {
-            setNewCorrectAnswer(event.target.value);
-          }}
-        />
-      </div>
-
+      <Textarea
+        value={newQuestion}
+        setValue={setNewQuestion}
+        label={"Question"}
+      />
+      <Textarea
+        value={newCorrectAnswer}
+        setValue={setNewCorrectAnswer}
+        label={"Correct answer"}
+      />
       <div>
         <button onClick={onAdd}>Добавить новую задачу</button>
       </div>

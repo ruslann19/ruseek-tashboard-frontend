@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import tasksAPI from "@/shared/api/tasks";
+import Textarea from "@/shared/ui/Textarea/Textarea";
+import { useContext } from "react";
+import { TasksContext, TasksProvider } from "@/entities/task";
+import navigate from "@/shared/hooks/navigate";
+import styles from "./TaskPage.module.css";
 
-const TaskPage = (props) => {
+const ChildComponent = (props) => {
   const { params } = props;
   const taskId = params.id;
 
@@ -9,11 +14,18 @@ const TaskPage = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
+  const [question, setQuestion] = useState("");
+  const [correctAnswer, setCorrectAnswer] = useState("");
+
+  const { deleteTask, updateTask } = useContext(TasksContext);
+
   useEffect(() => {
     const loadTask = async () => {
       try {
         const loadedTask = await tasksAPI.getById(taskId);
         setTask(loadedTask);
+        setQuestion(loadedTask.question);
+        setCorrectAnswer(loadedTask.correct_answer);
         setHasError(false);
       } catch {
         setHasError(true);
@@ -33,12 +45,65 @@ const TaskPage = (props) => {
     return <div>Task not found!</div>;
   }
 
+  const onSave = async (event) => {
+    event.preventDefault();
+
+    const updatedTask = {
+      ...task,
+      question: question.trim(),
+      correct_answer: correctAnswer.trim(),
+    };
+
+    updateTask(updatedTask);
+
+    setTask(updatedTask);
+    setQuestion(updatedTask.question);
+    setCorrectAnswer(updatedTask.correct_answer);
+  };
+
+  const onCancel = (event) => {
+    event.preventDefault();
+    setQuestion(task.question);
+    setCorrectAnswer(task.correct_answer);
+  };
+
+  const onDelete = (event) => {
+    event.preventDefault();
+
+    const isConfirmed = confirm(
+      `Вы уверены, что хотите удалить задачу (id: ${taskId})?`,
+    );
+    if (isConfirmed) {
+      deleteTask(task.id);
+      navigate("/tasks");
+    }
+  };
+
   return (
-    <div>
+    <div className={styles.taskPageContainer}>
       <div>id: {task.id}</div>
-      <div>question: {task.question}</div>
-      <div>correct_answer: {task.correct_answer}</div>
+      <Textarea value={question} setValue={setQuestion} label="Question" />
+      <Textarea
+        value={correctAnswer}
+        setValue={setCorrectAnswer}
+        label="Correct answer"
+      />
+      <div className={styles.buttonsWrapper}>
+        <button onClick={onSave}>Сохранить</button>
+        <button onClick={onCancel}>Отмена</button>
+      </div>
+      <div className={styles.buttonsWrapper}>
+        <button onClick={onDelete}>Удалить</button>
+      </div>
     </div>
+  );
+};
+
+const TaskPage = (props) => {
+  return (
+    <TasksProvider>
+      <ChildComponent {...props} />
+    </TasksProvider>
   );
 };
 
