@@ -2,8 +2,19 @@ import { useContext } from "react";
 import styles from "./ListFilter.module.css";
 import { TasksContext } from "@/entities/task";
 
-const ListFilter = () => {
-  const { searchQuery, setSearchQuery } = useContext(TasksContext);
+const ListFilter = (props) => {
+  const { sortingFields } = props;
+
+  const { setSortedField, setSortOrder, searchQuery, setSearchQuery } =
+    useContext(TasksContext);
+
+  const onChangeSortedField = (event) => {
+    setSortedField(event.target.value);
+  };
+
+  const onChangeSortOrder = (event) => {
+    setSortOrder(event.target.value);
+  };
 
   return (
     <form
@@ -13,13 +24,20 @@ const ListFilter = () => {
       }}
     >
       <span>Сортировать по:</span>
-      <select name="direction" id="direction">
-        <option value="increase">убыванию</option>
-        <option value="decrease">возрастанию</option>
+      <select name="direction" id="direction" onChange={onChangeSortOrder}>
+        <option value="asc">возрастанию</option>
+        <option value="desc">убыванию</option>
       </select>
-      <select name="field" id="field">
-        <option value="id">id</option>
-        <option value="rating">рейтинга</option>
+      <select
+        onChange={onChangeSortedField}
+        name="sorting_fields"
+        id="sorting_fields"
+      >
+        {sortingFields.map((field) => (
+          <option value={field.value} key={field.value}>
+            {field.title}
+          </option>
+        ))}
       </select>
       <input
         type="text"

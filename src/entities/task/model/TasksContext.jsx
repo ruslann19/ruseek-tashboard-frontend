@@ -9,6 +9,10 @@ export const TasksProvider = (props) => {
   const {
     tasks,
     setTasks,
+    sortedField,
+    setSortedField,
+    sortOrder,
+    setSortOrder,
     searchQuery,
     setSearchQuery,
     clearSearchQuery,
@@ -24,6 +28,10 @@ export const TasksProvider = (props) => {
       value={{
         tasks,
         setTasks,
+        sortedField,
+        setSortedField,
+        sortOrder,
+        setSortOrder,
         searchQuery,
         setSearchQuery,
         clearSearchQuery,
