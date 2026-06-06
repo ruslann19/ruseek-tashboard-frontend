@@ -39,6 +39,26 @@ const tasksAPI = {
     }
   },
 
+  parseGame: async (sourceUrl, publishedDate) => {
+    const body = {
+      source_url: sourceUrl,
+      published_date: publishedDate,
+    };
+
+    try {
+      const response = await fetch(`${API_URL}/collect`, {
+        method: "POST",
+        headers: HEADERS,
+        body: JSON.stringify(body),
+      });
+
+      const addedTasks = await response.json();
+      return addedTasks;
+    } catch (error) {
+      console.log("Ошибка при парсинге игры:", error);
+    }
+  },
+
   delete: async (taskId) => {
     try {
       await fetch(`${API_URL}/${taskId}`, {

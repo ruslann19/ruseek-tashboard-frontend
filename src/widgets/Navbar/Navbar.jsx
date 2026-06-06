@@ -8,6 +8,10 @@ const navbarItems = [
     redirectTo: "/tasks",
   },
   {
+    title: "Add tasks",
+    redirectTo: "/add-tasks",
+  },
+  {
     title: "Models",
     redirectTo: "/models",
   },

@@ -1,5 +1,6 @@
 import Router from "./routing/Router";
 import TaskPage from "@/pages/TaskPage";
+import AddTasksPage from "@/pages/AddTasksPage";
 import TasksPage from "@/pages/TasksPage";
 import PageNotFound from "@/pages/PageNotFound";
 import Main from "@/widgets/Main";
@@ -14,6 +15,7 @@ const App = () => {
   const routes = {
     "/": "/tasks",
     "/tasks": TasksPage,
+    "/add-tasks": AddTasksPage,
     "/tasks/:id": TaskPage,
     "/models": ModelsPage,
     "/answers": AnswersPage,

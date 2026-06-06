@@ -23,7 +23,12 @@ const AddTask = () => {
   const [sourceUrl, setSourceUrl] = useState("");
 
   const onAdd = async () => {
-    if (question.trim().length === 0 || correctAnswer.trim().length === 0) {
+    if (
+      question.trim().length === 0 ||
+      correctAnswer.trim().length === 0 ||
+      publishedDate.trim().length === 0 ||
+      sourceUrl.trim().length === 0
+    ) {
       return;
     }
 
