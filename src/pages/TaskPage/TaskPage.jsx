@@ -7,6 +7,13 @@ import { TasksContext, TasksProvider } from "@/entities/task";
 import navigate from "@/shared/hooks/navigate";
 import styles from "./TaskPage.module.css";
 
+const states = [
+  { value: "on validation", title: "На проверке" },
+  { value: "queue", title: "В очереди" },
+  { value: "benchmark", title: "В тестировании" },
+  { value: "archive", title: "В архиве" },
+];
+
 const ChildComponent = (props) => {
   const { params } = props;
   const taskId = params.id;
@@ -123,6 +130,22 @@ const ChildComponent = (props) => {
         setValue={setSourceUrl}
         label={"Source URL"}
       />
+
+      <div className={styles.selectWrapper}>
+        <span>Статус задачи</span>
+        <select
+          name="state"
+          id="state"
+          value={task.state}
+          onChange={(event) => setTask({ ...task, state: event.target.value })}
+        >
+          {states.map((state) => (
+            <option key={state.value} value={state.value}>
+              {state.title}
+            </option>
+          ))}
+        </select>
+      </div>
 
       <div className={styles.buttonsWrapper}>
         <button onClick={onSave}>Сохранить</button>
