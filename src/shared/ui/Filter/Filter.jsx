@@ -1,19 +1,18 @@
-import { useContext } from "react";
-import styles from "./ListFilter.module.css";
-import { TasksContext } from "@/entities/task";
+import styles from "./Filter.module.css";
 
-const ListFilter = (props) => {
-  const { sortingFields } = props;
-
-  const { setSortedField, setSortOrder, searchQuery, setSearchQuery } =
-    useContext(TasksContext);
+const Filter = (props) => {
+  const { sortingFields, filterParams, setFilterParams } = props;
 
   const onChangeSortedField = (event) => {
-    setSortedField(event.target.value);
+    setFilterParams({ ...filterParams, field: event.target.value });
   };
 
   const onChangeSortOrder = (event) => {
-    setSortOrder(event.target.value);
+    setFilterParams({ ...filterParams, order: event.target.value });
+  };
+
+  const onSearchInput = (event) => {
+    setFilterParams({ ...filterParams, search: event.target.value });
   };
 
   return (
@@ -45,13 +44,11 @@ const ListFilter = (props) => {
         name="search"
         id="search"
         placeholder="Search"
-        value={searchQuery}
-        onInput={(event) => {
-          setSearchQuery(event.target.value);
-        }}
+        value={filterParams.search}
+        onInput={onSearchInput}
       />
     </form>
   );
 };
 
-export default ListFilter;
+export default Filter;

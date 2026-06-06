@@ -3,7 +3,7 @@ const HEADERS = {
   "Content-Type": "application/json",
 };
 
-const tasksAPI = {
+const tasksApi = {
   getAll: async () => {
     try {
       const response = await fetch(API_URL);
@@ -83,4 +83,4 @@ const tasksAPI = {
   },
 };
 
-export default tasksAPI;
+export default tasksApi;

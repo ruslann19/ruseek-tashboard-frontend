@@ -1,5 +1,5 @@
 import styles from "./NavbarItem.module.css";
-import navigate from "@/shared/hooks/navigate";
+import navigate from "@/shared/utils/navigate";
 
 const NavbarItem = (props) => {
   const { id, title, redirectTo, onClickNavbarItem, isActive } = props;

@@ -19,7 +19,11 @@ const Header = (props) => {
         <span
           key={index}
           onClick={onClickItem}
-          className={item === activeItem ? styles.activeItem : ""}
+          className={
+            item === activeItem
+              ? `${styles.headerItem} ${styles.activeHeaderItem}`
+              : styles.headerItem
+          }
         >
           {item}
         </span>
@@ -29,10 +33,8 @@ const Header = (props) => {
 };
 
 const ParseGame = () => {
-  const [sourceUrl, setSourceUrl] = useState(
-    "http://forumsi.org/showpost.php?p=42135&postcount=80",
-  );
-  const [publishedDate, setPublishedDate] = useState("2026-05-31");
+  const [sourceUrl, setSourceUrl] = useState("");
+  const [publishedDate, setPublishedDate] = useState("");
 
   const [parsedTasks, setParsedTasks] = useState([]);
 

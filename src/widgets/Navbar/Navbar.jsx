@@ -12,16 +12,16 @@ const navbarItems = [
     redirectTo: "/add-tasks",
   },
   {
-    title: "Models",
-    redirectTo: "/models",
+    title: "LLMs",
+    redirectTo: "/llms",
   },
   {
     title: "Answers",
     redirectTo: "/answers",
   },
   {
-    title: "Test models",
-    redirectTo: "/test-models",
+    title: "Test LLMs",
+    redirectTo: "/test-llms",
   },
 ];
 

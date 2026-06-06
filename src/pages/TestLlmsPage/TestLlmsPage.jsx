@@ -1,7 +1,7 @@
 import SingleButtonSection from "@/shared/ui/SingleButtonSection";
 
-const TestModelsPage = () => {
+const TestLlmsPage = () => {
   return <SingleButtonSection buttonTitle={"Запустить тестирование моделей"} />;
 };
 
-export default TestModelsPage;
+export default TestLlmsPage;

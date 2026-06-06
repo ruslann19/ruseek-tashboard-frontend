@@ -5,9 +5,9 @@ import TasksPage from "@/pages/TasksPage";
 import PageNotFound from "@/pages/PageNotFound";
 import Main from "@/widgets/Main";
 import Header from "@/widgets/Header";
-import ModelsPage from "@/pages/ModelsPage";
+import LlmsPage from "@/pages/LlmsPage";
 import AnswersPage from "@/pages/AnswersPage/AnswersPage";
-import TestModelsPage from "@/pages/TestModelsPage";
+import TestLlmsPage from "@/pages/TestLlmsPage";
 import styles from "./App.module.css";
 import "./styles";
 
@@ -17,9 +17,9 @@ const App = () => {
     "/tasks": TasksPage,
     "/add-tasks": AddTasksPage,
     "/tasks/:id": TaskPage,
-    "/models": ModelsPage,
+    "/llms": LlmsPage,
     "/answers": AnswersPage,
-    "/test-models": TestModelsPage,
+    "/test-llms": TestLlmsPage,
     "*": PageNotFound,
   };
 

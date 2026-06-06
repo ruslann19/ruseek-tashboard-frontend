@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import tasksAPI from "@/shared/api/tasks";
+import tasksApi from "@/shared/api/tasks";
 import Textarea from "@/shared/ui/Textarea/Textarea";
 import Input from "@/shared/ui/Input/Input";
 import { useContext } from "react";
 import { TasksContext, TasksProvider } from "@/entities/task";
-import navigate from "@/shared/hooks/navigate";
+import navigate from "@/shared/utils/navigate";
 import styles from "./TaskPage.module.css";
 
 const states = [
@@ -42,7 +42,7 @@ const ChildComponent = (props) => {
   useEffect(() => {
     const loadTask = async () => {
       try {
-        const loadedTask = await tasksAPI.getById(taskId);
+        const loadedTask = await tasksApi.getById(taskId);
 
         setTask(loadedTask);
         setQuestion(loadedTask.question);

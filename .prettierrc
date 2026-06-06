@@ -7,5 +7,20 @@
     "printWidth": 80,
     "tabWidth": 2,
     "arrowParens": "always",
-    "endOfLine": "lf"
+    "endOfLine": "lf",
+    "plugins": ["@trivago/prettier-plugin-sort-imports"],
+    "importOrder": [
+        "^[react]",
+        "^./hooks",
+        "^~/icons", 
+        "^@(?!/)",
+        "^@/entities",
+        "^@/features",
+        "^@/widget",
+        "^@/shared",
+        "^./ui",
+        "^[./]"
+    ],
+    "importOrderSeparation": true,
+    "importOrderSortSpecifiers": true
 }
