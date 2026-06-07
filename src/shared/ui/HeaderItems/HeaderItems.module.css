@@ -1,0 +1,16 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  gap: 100px;
+  padding: 20px;
+}
+
+.headerItem {
+  cursor: pointer;
+}
+
+.activeHeaderItem {
+  text-decoration: underline;
+}

@@ -1,36 +1,15 @@
 import { useEffect, useState } from "react";
+
 import { TasksProvider } from "@/entities/task";
+
 import AddTask from "@/features/add-task";
+
+import HeaderItems from "@/shared/ui/HeaderItems";
 import Input from "@/shared/ui/Input";
+
 import styles from "./AddTasksPage.module.css";
 
 const items = ["Добавить задачу вручную", 'Распарсить выпуск из "Своей игры"'];
-
-const Header = (props) => {
-  const { activeItem, setActiveItem } = props;
-
-  const onClickItem = (event) => {
-    setActiveItem(event.target.innerHTML);
-  };
-
-  return (
-    <div className={styles.header}>
-      {items.map((item, index) => (
-        <span
-          key={index}
-          onClick={onClickItem}
-          className={
-            item === activeItem
-              ? `${styles.headerItem} ${styles.activeHeaderItem}`
-              : styles.headerItem
-          }
-        >
-          {item}
-        </span>
-      ))}
-    </div>
-  );
-};
 
 const ParseGame = () => {
   const [sourceUrl, setSourceUrl] = useState("");
@@ -139,7 +118,11 @@ const AddTasksPage = () => {
 
   return (
     <TasksProvider>
-      <Header activeItem={activeItem} setActiveItem={setActiveItem} />
+      <HeaderItems
+        items={items}
+        activeItem={activeItem}
+        setActiveItem={setActiveItem}
+      />
       {content}
     </TasksProvider>
   );
