@@ -13,6 +13,21 @@ const tasksApi = {
     }
   },
 
+  getByMonth: async (year, month) => {
+    const params = {
+      year: year,
+      month: month,
+    };
+    const queryString = new URLSearchParams(params).toString();
+    const response = await fetch(`${apiUrl}/by-month?${queryString}`);
+    return await response.json();
+  },
+
+  getBenchmarkVersions: async () => {
+    const response = await fetch(`${apiUrl}/benchmark-versions`);
+    return await response.json();
+  },
+
   getById: async (taskId) => {
     try {
       const response = await fetch(`${apiUrl}/${taskId}`);

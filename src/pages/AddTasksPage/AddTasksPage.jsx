@@ -6,6 +6,7 @@ import AddTask from "@/features/add-task";
 
 import HeaderItems from "@/shared/ui/HeaderItems";
 import Input from "@/shared/ui/Input";
+import autoAlert from "@/shared/utils/autoAlert";
 
 import styles from "./AddTasksPage.module.css";
 
@@ -20,17 +21,17 @@ const ParseGame = () => {
   const onSubmit = async (event) => {
     event.preventDefault();
 
-    const button = document.getElementById("parse-game-submit");
-    button.disabled = true;
-
     if (sourceUrl.trim().length === 0) {
-      alert("Не указан URL");
+      autoAlert("Не указан URL");
       return;
     }
     if (publishedDate.trim().length === 0) {
-      alert("Не указана дата публикации");
+      autoAlert("Не указана дата публикации");
       return;
     }
+
+    const button = document.getElementById("parse-game-submit");
+    button.disabled = true;
 
     const gameMetadata = {
       source_url: sourceUrl,
@@ -47,7 +48,7 @@ const ParseGame = () => {
       const wsMessage = JSON.parse(event.data);
 
       if (wsMessage.type === "error") {
-        alert(wsMessage.content);
+        autoAlert(wsMessage.content);
       } else if (wsMessage.type === "task") {
         const task = JSON.parse(wsMessage.content);
         setParsedTasks((prevTasks) => [...prevTasks, task]);

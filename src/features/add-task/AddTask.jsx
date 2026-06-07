@@ -1,7 +1,11 @@
 import { useContext, useState } from "react";
+
 import { TasksContext } from "@/entities/task";
-import Textarea from "@/shared/ui/Textarea";
+
 import Input from "@/shared/ui/Input";
+import Textarea from "@/shared/ui/Textarea";
+import autoAlert from "@/shared/utils/autoAlert";
+
 import styles from "./AddTask.module.css";
 
 const AddTask = () => {
@@ -10,40 +14,39 @@ const AddTask = () => {
   const [question, setQuestion] = useState("");
   const [correctAnswer, setCorrectAnswer] = useState("");
 
-  const options = {
-    timeZone: "Europe/Moscow",
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  };
-  const ruDate = new Date().toLocaleString("ru-RU", options);
-  const todayInMoscow = ruDate.split(".").reverse().join("-");
-
-  const [publishedDate, setPublishedDate] = useState(todayInMoscow);
+  const [publishedDate, setPublishedDate] = useState("");
   const [sourceUrl, setSourceUrl] = useState("");
 
   const onAdd = async () => {
-    if (
-      question.trim().length === 0 ||
-      correctAnswer.trim().length === 0 ||
-      publishedDate.trim().length === 0 ||
-      sourceUrl.trim().length === 0
-    ) {
+    if (question.trim().length === 0) {
+      autoAlert("Не введён вопрос");
+      return;
+    }
+    if (correctAnswer.trim().length === 0) {
+      autoAlert("Не указан правильный ответ");
+      return;
+    }
+    if (publishedDate.trim().length === 0) {
+      autoAlert("Не указана дата публикации");
+      return;
+    }
+    if (sourceUrl.trim().length === 0) {
+      autoAlert("Не указан URL (источник)");
       return;
     }
 
     const task = {
-      question: question,
-      correct_answer: correctAnswer,
-      published_date: publishedDate,
-      source_url: sourceUrl,
+      question: question.trim(),
+      correct_answer: correctAnswer.trim(),
+      published_date: publishedDate.trim(),
+      source_url: sourceUrl.trim(),
     };
 
     await addTask(task);
 
     setQuestion("");
     setCorrectAnswer("");
-    setPublishedDate(todayInMoscow);
+    setPublishedDate("");
     setSourceUrl("");
   };
 

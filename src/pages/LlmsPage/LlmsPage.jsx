@@ -33,7 +33,7 @@ const AddLlm = (props) => {
       const body = await response.json();
       const detail = body.detail;
 
-      alert(detail);
+      autoAlert(detail);
     } else if (response.status === 200) {
       const addedLlm = await response.json();
       setLlms((previousLlms) => [...previousLlms, addedLlm]);
