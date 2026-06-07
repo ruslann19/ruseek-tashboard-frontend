@@ -1,14 +1,17 @@
-import Router from "./routing/Router";
-import TaskPage from "@/pages/TaskPage";
 import AddTasksPage from "@/pages/AddTasksPage";
-import TasksPage from "@/pages/TasksPage";
-import PageNotFound from "@/pages/PageNotFound";
-import Main from "@/widgets/Main";
-import Header from "@/widgets/Header";
-import LlmsPage from "@/pages/LlmsPage";
 import AnswersPage from "@/pages/AnswersPage/AnswersPage";
+import BalancePage from "@/pages/BalancePage";
+import LlmsPage from "@/pages/LlmsPage";
+import PageNotFound from "@/pages/PageNotFound";
+import TaskPage from "@/pages/TaskPage";
+import TasksPage from "@/pages/TasksPage";
 import TestLlmsPage from "@/pages/TestLlmsPage";
+
+import Header from "@/widgets/Header";
+import Main from "@/widgets/Main";
+
 import styles from "./App.module.css";
+import Router from "./routing/Router";
 import "./styles";
 
 const App = () => {
@@ -20,6 +23,7 @@ const App = () => {
     "/llms": LlmsPage,
     "/answers": AnswersPage,
     "/test-llms": TestLlmsPage,
+    "/balance": BalancePage,
     "*": PageNotFound,
   };
 

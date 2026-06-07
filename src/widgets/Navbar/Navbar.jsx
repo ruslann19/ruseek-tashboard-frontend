@@ -1,5 +1,7 @@
 import { useState } from "react";
+
 import NavbarItem from "@/shared/ui/NavbarItem";
+
 import styles from "./Navbar.module.css";
 
 const navbarItems = [
@@ -22,6 +24,10 @@ const navbarItems = [
   {
     title: "Test LLMs",
     redirectTo: "/test-llms",
+  },
+  {
+    title: "Balance",
+    redirectTo: "/balance",
   },
 ];
 

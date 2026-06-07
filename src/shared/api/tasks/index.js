@@ -1,12 +1,11 @@
-const API_URL = "http://localhost:8000/tasks";
-const HEADERS = {
-  "Content-Type": "application/json",
-};
+import { apiHost, headers } from "@/shared/api/common";
+
+const apiUrl = `${apiHost}/tasks`;
 
 const tasksApi = {
   getAll: async () => {
     try {
-      const response = await fetch(API_URL);
+      const response = await fetch(apiUrl);
       const tasks = await response.json();
       return tasks;
     } catch (error) {
@@ -16,7 +15,7 @@ const tasksApi = {
 
   getById: async (taskId) => {
     try {
-      const response = await fetch(`${API_URL}/${taskId}`);
+      const response = await fetch(`${apiUrl}/${taskId}`);
       const task = await response.json();
       return task;
     } catch (error) {
@@ -26,9 +25,9 @@ const tasksApi = {
 
   add: async (task) => {
     try {
-      const response = await fetch(API_URL, {
+      const response = await fetch(apiUrl, {
         method: "POST",
-        headers: HEADERS,
+        headers: headers,
         body: JSON.stringify(task),
       });
 
@@ -46,9 +45,9 @@ const tasksApi = {
     };
 
     try {
-      const response = await fetch(`${API_URL}/collect`, {
+      const response = await fetch(`${apiUrl}/collect`, {
         method: "POST",
-        headers: HEADERS,
+        headers: headers,
         body: JSON.stringify(body),
       });
 
@@ -61,9 +60,9 @@ const tasksApi = {
 
   delete: async (taskId) => {
     try {
-      await fetch(`${API_URL}/${taskId}`, {
+      await fetch(`${apiUrl}/${taskId}`, {
         method: "DELETE",
-        headers: HEADERS,
+        headers: headers,
       });
     } catch (error) {
       console.log("Ошибка при удалении задачи:", error);
@@ -72,9 +71,9 @@ const tasksApi = {
 
   put: async (task) => {
     try {
-      await fetch(`${API_URL}/${task.id}`, {
+      await fetch(`${apiUrl}/${task.id}`, {
         method: "PUT",
-        headers: HEADERS,
+        headers: headers,
         body: JSON.stringify(task),
       });
     } catch (error) {

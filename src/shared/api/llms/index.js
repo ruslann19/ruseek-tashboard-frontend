@@ -1,12 +1,11 @@
-const API_URL = "http://localhost:8000/llms";
-const HEADERS = {
-  "Content-Type": "application/json",
-};
+import { apiHost, headers } from "@/shared/api/common";
+
+const apiUrl = `${apiHost}/llms`;
 
 const llmsApi = {
   getAll: async () => {
     try {
-      const response = await fetch(API_URL);
+      const response = await fetch(apiUrl);
       const llms = await response.json();
       return llms;
     } catch (error) {
@@ -16,7 +15,7 @@ const llmsApi = {
 
   getById: async (taskId) => {
     try {
-      const response = await fetch(`${API_URL}/${taskId}`);
+      const response = await fetch(`${apiUrl}/${taskId}`);
       const llm = await response.json();
       return llm;
     } catch (error) {
@@ -26,9 +25,9 @@ const llmsApi = {
 
   add: async (llm) => {
     try {
-      const response = await fetch(API_URL, {
+      const response = await fetch(apiUrl, {
         method: "POST",
-        headers: HEADERS,
+        headers: headers,
         body: JSON.stringify(llm),
       });
 
@@ -40,9 +39,9 @@ const llmsApi = {
 
   delete: async (llmId) => {
     try {
-      await fetch(`${API_URL}/${llmId}`, {
+      await fetch(`${apiUrl}/${llmId}`, {
         method: "DELETE",
-        headers: HEADERS,
+        headers: headers,
       });
     } catch (error) {
       console.log("Ошибка при удалении модели:", error);
@@ -51,9 +50,9 @@ const llmsApi = {
 
   put: async (llm) => {
     try {
-      await fetch(`${API_URL}/${llm.id}`, {
+      await fetch(`${apiUrl}/${llm.id}`, {
         method: "PUT",
-        headers: HEADERS,
+        headers: headers,
         body: JSON.stringify(llm),
       });
     } catch (error) {
