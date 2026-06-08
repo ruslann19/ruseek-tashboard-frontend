@@ -5,14 +5,10 @@ import styles from "./HiddableList.module.css";
 const HiddableList = (props) => {
   const { title, areItemsHidden, setAreItemsHidden, children } = props;
 
-  //   console.log("HiddableList children:", children);
-
   const hideItems = () => {
-    console.log("hide");
     setAreItemsHidden(true);
   };
   const showItems = () => {
-    console.log("show");
     setAreItemsHidden(false);
   };
 
