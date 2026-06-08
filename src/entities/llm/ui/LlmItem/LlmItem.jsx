@@ -1,7 +1,10 @@
-import llmsApi from "@/shared/api/llms";
-import styles from "./LlmItem.module.css";
-import { LlmsContext } from "../../model/LlmsContext";
 import { useContext } from "react";
+
+import llmsApi from "@/shared/api/llms";
+import Button from "@/shared/ui/Button";
+
+import { LlmsContext } from "../../model/LlmsContext";
+import styles from "./LlmItem.module.css";
 
 const LlmItem = (props) => {
   const { id, name } = props;
@@ -22,7 +25,7 @@ const LlmItem = (props) => {
     <div className={styles.llmItem}>
       <div>id: {id}</div>
       <div>name: {name}</div>
-      <button onClick={onDelete}>Удалить</button>
+      <Button onClick={onDelete}>Удалить</Button>
     </div>
   );
 };

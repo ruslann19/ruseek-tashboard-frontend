@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 
 import { TasksContext } from "@/entities/task";
 
+import Button from "@/shared/ui/Button";
 import Input from "@/shared/ui/Input";
 import Textarea from "@/shared/ui/Textarea";
 import autoAlert from "@/shared/utils/autoAlert";
@@ -78,7 +79,7 @@ const AddTask = () => {
       />
 
       <div>
-        <button onClick={onAdd}>Добавить новую задачу</button>
+        <Button onClick={onAdd}>Добавить новую задачу</Button>
       </div>
     </form>
   );

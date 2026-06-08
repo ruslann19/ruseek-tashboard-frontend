@@ -4,6 +4,7 @@ import { TasksProvider } from "@/entities/task";
 
 import AddTask from "@/features/add-task";
 
+import Button from "@/shared/ui/Button";
 import HeaderItems from "@/shared/ui/HeaderItems";
 import Input from "@/shared/ui/Input";
 import autoAlert from "@/shared/utils/autoAlert";
@@ -18,9 +19,7 @@ const ParseGame = () => {
 
   const [parsedTasks, setParsedTasks] = useState([]);
 
-  const onSubmit = async (event) => {
-    event.preventDefault();
-
+  const onSubmit = async () => {
     if (sourceUrl.trim().length === 0) {
       autoAlert("Не указан URL");
       return;
@@ -79,9 +78,9 @@ const ParseGame = () => {
           setValue={setPublishedDate}
           label={"Published date"}
         />
-        <button id="parse-game-submit" onClick={onSubmit}>
+        <Button id="parse-game-submit" onClick={onSubmit}>
           Распарсить
-        </button>
+        </Button>
       </form>
       <div>
         <span>Распаршено задач: {parsedTasks.length}</span>

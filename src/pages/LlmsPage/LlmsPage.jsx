@@ -4,9 +4,11 @@ import LlmItem from "@/entities/llm";
 import { LlmsContext, LlmsProvider } from "@/entities/llm";
 
 import llmsApi from "@/shared/api/llms";
+import Button from "@/shared/ui/Button";
 import Filter from "@/shared/ui/Filter";
 import Input from "@/shared/ui/Input";
 import List from "@/shared/ui/List";
+import autoAlert from "@/shared/utils/autoAlert";
 import sortByField from "@/shared/utils/sortByField";
 
 import styles from "./LlmsPage.module.css";
@@ -16,10 +18,9 @@ const AddLlm = (props) => {
 
   const [llmName, setLlmName] = useState("");
 
-  const onSubmit = async (event) => {
-    event.preventDefault();
-
+  const onSubmit = async () => {
     if (llmName.trim().length === 0) {
+      autoAlert("Не введено имя LLM");
       return;
     }
 
@@ -32,7 +33,6 @@ const AddLlm = (props) => {
     if (response.status === 406) {
       const body = await response.json();
       const detail = body.detail;
-
       autoAlert(detail);
     } else if (response.status === 200) {
       const addedLlm = await response.json();
@@ -50,7 +50,7 @@ const AddLlm = (props) => {
         label={"LLM name"}
       />
       <div>
-        <button onClick={onSubmit}>Добавить</button>
+        <Button onClick={onSubmit}>Добавить</Button>
       </div>
     </div>
   );

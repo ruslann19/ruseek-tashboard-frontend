@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
-import tasksApi from "@/shared/api/tasks";
-import Textarea from "@/shared/ui/Textarea/Textarea";
-import Input from "@/shared/ui/Input/Input";
 import { useContext } from "react";
+
 import { TasksContext, TasksProvider } from "@/entities/task";
+
+import tasksApi from "@/shared/api/tasks";
+import Button from "@/shared/ui/Button";
+import Input from "@/shared/ui/Input/Input";
+import Textarea from "@/shared/ui/Textarea/Textarea";
 import navigate from "@/shared/utils/navigate";
+
 import styles from "./TaskPage.module.css";
 
 const states = [
@@ -69,9 +73,7 @@ const ChildComponent = (props) => {
     return <div>Task not found!</div>;
   }
 
-  const onSave = async (event) => {
-    event.preventDefault();
-
+  const onSave = async () => {
     const updatedTask = {
       ...task,
       question: question.trim(),
@@ -89,17 +91,14 @@ const ChildComponent = (props) => {
     setSourceUrl(updatedTask.source_url);
   };
 
-  const onCancel = (event) => {
-    event.preventDefault();
+  const onCancel = () => {
     setQuestion(task.question);
     setCorrectAnswer(task.correct_answer);
     setPublishedDate(task.published_date);
     setSourceUrl(task.source_url);
   };
 
-  const onDelete = (event) => {
-    event.preventDefault();
-
+  const onDelete = () => {
     const isConfirmed = confirm(
       `Вы уверены, что хотите удалить задачу (id: ${taskId})?`,
     );
@@ -148,11 +147,11 @@ const ChildComponent = (props) => {
       </div>
 
       <div className={styles.buttonsWrapper}>
-        <button onClick={onSave}>Сохранить</button>
-        <button onClick={onCancel}>Отмена</button>
+        <Button onClick={onSave}>Сохранить</Button>
+        <Button onClick={onCancel}>Отмена</Button>
       </div>
       <div className={styles.buttonsWrapper}>
-        <button onClick={onDelete}>Удалить</button>
+        <Button onClick={onDelete}>Удалить</Button>
       </div>
     </div>
   );
