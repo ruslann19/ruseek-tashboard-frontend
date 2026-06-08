@@ -20,9 +20,22 @@ const SelectLlmsForm = ({ updateFormData, isTestingStarted }) => {
   useEffect(() => {
     const fetchData = async () => {
       const llms = await llmsApi.getAll();
+      // TODO: вернуть этот код
+      // setLlmsState((prev) => {
+      //   return { ...prev, notSelectedItems: llms };
+      // });
+
+      // TODO: убрать этот код
+      const firstLlm = llms[0];
+      const otherLlms = llms.slice(1);
       setLlmsState((prev) => {
-        return { ...prev, notSelectedItems: llms };
+        return {
+          ...prev,
+          selectedItems: [firstLlm],
+          notSelectedItems: otherLlms,
+        };
       });
+      updateFormData({ selectedModels: [firstLlm] });
     };
 
     fetchData();

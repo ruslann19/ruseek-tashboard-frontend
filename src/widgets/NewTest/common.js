@@ -1,3 +1,7 @@
+import EventEmitter from "@/shared/utils/EventEmitter";
+
+export const newTestEventEmitter = new EventEmitter();
+
 export const selectItem = (item, setState) => {
   setState((prev) => {
     return {

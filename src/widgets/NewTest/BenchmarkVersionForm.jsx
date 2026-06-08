@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 
 import tasksApi from "@/shared/api/tasks";
 import Button from "@/shared/ui/Button";
-import autoAlert from "@/shared/utils/autoAlert";
+
+// import autoAlert from "@/shared/utils/autoAlert";
 
 import styles from "./NewTest.module.css";
+import { newTestEventEmitter } from "./common";
 
 const monthNumberToName = (monthNumber) => {
   const mapper = {
@@ -42,13 +44,26 @@ const BenchmarkVersionForm = ({
   //   useEffect
   useEffect(() => {
     const fetchData = async () => {
-      const result = await tasksApi.getBenchmarkVersions();
+      const versions = await tasksApi.getBenchmarkVersions();
       setBenchmarkVersionState((prev) => {
-        return { ...prev, potentialBenchmarkVersions: result.potential };
+        return { ...prev, potentialBenchmarkVersions: versions.potential };
       });
     };
 
     fetchData();
+
+    newTestEventEmitter.on("testing done", async () => {
+      const select = document.getElementById("version-select");
+      select.selectedIndex = 0;
+
+      const versions = await tasksApi.getBenchmarkVersions();
+
+      setBenchmarkVersionState({
+        benchmarkVersion: null,
+        isReady: false,
+        potentialBenchmarkVersions: versions.potential,
+      });
+    });
   }, []);
 
   const benchmarkVersionCallbacks = {
@@ -67,7 +82,7 @@ const BenchmarkVersionForm = ({
 
       // TODO: Убрать это после тестирования
       const select = document.getElementById("version-select");
-      select.selectedIndex = 3;
+      select.selectedIndex = 2;
 
       setBenchmarkVersionState((prev) => {
         return { ...prev, isReady: true };

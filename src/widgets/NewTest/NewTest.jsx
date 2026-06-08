@@ -45,7 +45,9 @@ const NewTest = () => {
         <div className={styles.flexRow}>
           <Testing
             formData={formData}
+            isTestingStarted={isTestingStarted}
             setIsTestingStarted={setIsTestingStarted}
+            setCurrentStep={setCurrentStep}
           />
         </div>
       )}
