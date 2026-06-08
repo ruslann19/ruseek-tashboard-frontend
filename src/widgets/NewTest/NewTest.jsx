@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import llmsApi from "@/shared/api/llms";
 import tasksApi from "@/shared/api/tasks";
 import Button from "@/shared/ui/Button";
+import HiddableList from "@/shared/ui/HiddableList/HiddableList";
 import autoAlert from "@/shared/utils/autoAlert";
 
 import styles from "./NewTest.module.css";
@@ -276,6 +277,7 @@ const NewTest = () => {
       });
     },
   };
+  console.log(tasksState);
 
   return (
     <div>
@@ -322,63 +324,51 @@ const NewTest = () => {
             </Button>
             <Button onClick={tasksCallbacks.onCancel}>Отмена</Button>
           </div>
-          <div className={styles.flexRow}>
-            <div>Выбранные задачи ({tasksState.selectedItems.length})</div>
-            {tasksState.showSelectedItems ? (
-              <Button onClick={tasksCallbacks.onHideSelectedItems}>
-                Скрыть
-              </Button>
-            ) : (
-              <Button onClick={tasksCallbacks.onShowSelectedItems}>
-                Показать
-              </Button>
-            )}
-          </div>
-          {tasksState.showSelectedItems && (
-            <div>
-              {tasksState.selectedItems.map((task) => (
-                <div key={task.id}>
-                  <input
-                    type="checkbox"
-                    defaultChecked
-                    disabled={tasksState.isReady}
-                    onInput={() => {
-                      unselectTask(task);
-                    }}
-                  />
-                  <a href={`/tasks/${task.id}`}>{task.question}</a>
-                </div>
-              ))}
-            </div>
-          )}
-          <div className={styles.flexRow}>
-            <div>Невыбранные задачи ({tasksState.notSelectedItems.length})</div>
-            {tasksState.showNotSelectedItems ? (
-              <Button onClick={tasksCallbacks.onHideNotSelectedItems}>
-                Скрыть
-              </Button>
-            ) : (
-              <Button onClick={tasksCallbacks.onShowNotSelectedItems}>
-                Показать
-              </Button>
-            )}
-          </div>
-          {tasksState.showNotSelectedItems && (
-            <div>
-              {tasksState.notSelectedItems.map((task) => (
-                <div key={task.id}>
-                  <input
-                    type="checkbox"
-                    disabled={tasksState.isReady}
-                    onInput={() => {
-                      selectTask(task);
-                    }}
-                  />
-                  <a href={`/tasks/${task.id}`}>{task.question}</a>
-                </div>
-              ))}
-            </div>
-          )}
+          <HiddableList
+            title={"Выбранные задачи"}
+            areItemsHidden={!tasksState.showSelectedItems}
+            setAreItemsHidden={(areItemsHidden) => {
+              setTasksState((prev) => {
+                return { ...prev, showSelectedItems: !areItemsHidden };
+              });
+            }}
+          >
+            {tasksState.selectedItems.map((task) => (
+              <div key={task.id}>
+                <input
+                  type="checkbox"
+                  defaultChecked
+                  disabled={tasksState.isReady}
+                  onInput={() => {
+                    unselectTask(task);
+                  }}
+                />
+                <a href={`/tasks/${task.id}`}>{task.question}</a>
+              </div>
+            ))}
+          </HiddableList>
+          <HiddableList
+            title={"Невыбранные задачи"}
+            areItemsHidden={!tasksState.showNotSelectedItems}
+            setAreItemsHidden={(areItemsHidden) => {
+              setTasksState((prev) => {
+                return { ...prev, showNotSelectedItems: !areItemsHidden };
+              });
+            }}
+          >
+            {tasksState.notSelectedItems.map((task) => (
+              <div key={task.id}>
+                <input
+                  type="checkbox"
+                  disabled={tasksState.isReady}
+                  onInput={() => {
+                    selectTask(task);
+                  }}
+                />
+                <a href={`/tasks/${task.id}`}>{task.question}</a>
+              </div>
+            ))}
+          </HiddableList>
         </div>
       )}
 
@@ -396,70 +386,51 @@ const NewTest = () => {
             <Button onClick={llmsCallbacks.onCanceled}>Отмена</Button>
           </div>
 
-          <div>
-            <div className={styles.flexRow}>
-              <div>Выбранные модели ({llmsState.selectedItems.length})</div>
-              {llmsState.showSelectedItems ? (
-                <Button onClick={llmsCallbacks.onHideSelectedItems}>
-                  Скрыть
-                </Button>
-              ) : (
-                <Button onClick={llmsCallbacks.onShowSelectedItems}>
-                  Показать
-                </Button>
-              )}
-            </div>
-            {llmsState.showSelectedItems && (
-              <div>
-                {llmsState.selectedItems.map((llm) => (
-                  <div key={llm.id}>
-                    <input
-                      type="checkbox"
-                      defaultChecked
-                      disabled={llmsState.isReady}
-                      onInput={() => {
-                        unselectLlm(llm);
-                      }}
-                    />
-                    <span>{JSON.stringify(llm)}</span>
-                  </div>
-                ))}
+          <HiddableList
+            title={"Выбранные модели"}
+            areItemsHidden={!llmsState.showSelectedItems}
+            setAreItemsHidden={(areItemsHidden) => {
+              setLlmsState((prev) => {
+                return { ...prev, showSelectedItems: !areItemsHidden };
+              });
+            }}
+          >
+            {llmsState.selectedItems.map((llm) => (
+              <div key={llm.id}>
+                <input
+                  type="checkbox"
+                  defaultChecked
+                  disabled={llmsState.isReady}
+                  onInput={() => {
+                    unselectLlm(llm);
+                  }}
+                />
+                <span>{JSON.stringify(llm)}</span>
               </div>
-            )}
-          </div>
-
-          <div>
-            <div className={styles.flexRow}>
-              <div>
-                Невыбранные модели ({llmsState.notSelectedItems.length})
+            ))}
+          </HiddableList>
+          <HiddableList
+            title={"Невыбранные модели"}
+            areItemsHidden={!llmsState.showNotSelectedItems}
+            setAreItemsHidden={(areItemsHidden) => {
+              setLlmsState((prev) => {
+                return { ...prev, showNotSelectedItems: !areItemsHidden };
+              });
+            }}
+          >
+            {llmsState.notSelectedItems.map((llm) => (
+              <div key={llm.id}>
+                <input
+                  type="checkbox"
+                  disabled={llmsState.isReady}
+                  onInput={() => {
+                    selectLlm(llm);
+                  }}
+                />
+                <span>{JSON.stringify(llm)}</span>
               </div>
-              {llmsState.showNotSelectedItems ? (
-                <Button onClick={llmsCallbacks.onHideNotSelectedItems}>
-                  Скрыть
-                </Button>
-              ) : (
-                <Button onClick={llmsCallbacks.onShowNotSelectedItems}>
-                  Показать
-                </Button>
-              )}
-            </div>
-            {llmsState.showNotSelectedItems && (
-              <div>
-                {llmsState.notSelectedItems.map((llm) => (
-                  <div key={llm.id}>
-                    <input
-                      type="checkbox"
-                      disabled={llmsState.isReady}
-                      onInput={() => {
-                        selectLlm(llm);
-                      }}
-                    />
-                    <span>{JSON.stringify(llm)}</span>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
+            ))}
+          </HiddableList>
         </div>
       )}
 
