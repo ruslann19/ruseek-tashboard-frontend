@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Button from "@/shared/ui/Button";
 import autoAlert from "@/shared/utils/autoAlert";
 
 import styles from "./NewTest.module.css";
-import { newTestEventEmitter } from "./common";
+import { newTestEventEmitter, newTestEvents } from "./common";
 
 const Testing = ({
   formData,
@@ -12,6 +12,7 @@ const Testing = ({
   setIsTestingStarted,
   setCurrentStep,
 }) => {
+  const [isTestingFinished, setIsTestingFinished] = useState(false);
   const [progress, setProgress] = useState(() => [
     { type: "judge", llmId: null, llmName: "LLM-as-a-Judge", progress: 0 },
     ...formData.selectedModels.map((model) => ({
@@ -21,7 +22,29 @@ const Testing = ({
       progress: 0,
     })),
   ]);
-  const [isTestingFinished, setIsTestingFinished] = useState(false);
+
+  useEffect(() => {
+    const updateSelectedModelsInProgress = async () => {
+      setProgress(() => {
+        return [
+          {
+            type: "judge",
+            llmId: null,
+            llmName: "LLM-as-a-Judge",
+            progress: 0,
+          },
+          ...formData.selectedModels.map((model) => ({
+            type: "llm",
+            llmId: model.id,
+            llmName: model.llm_name,
+            progress: 0,
+          })),
+        ];
+      });
+    };
+
+    updateSelectedModelsInProgress();
+  }, [formData.selectedModels]);
 
   const totalTasks = formData.selectedTasks.length;
   const totalModels = formData.selectedModels.length;
@@ -96,7 +119,7 @@ const Testing = ({
     setCurrentStep(1);
     setIsTestingStarted(false);
     setIsTestingFinished(false);
-    newTestEventEmitter.emit("testing done");
+    newTestEventEmitter.emit(newTestEvents.testingDone);
   };
 
   return (
@@ -128,7 +151,12 @@ const Testing = ({
           <tr>
             <td>{progress[0].llmName}</td>
             <td>{progress[0].progress}</td>
-            <td>{Math.round(progress[0].progress / totalAnswers) * 100}%</td>
+            <td>
+              {totalAnswers === 0
+                ? 0
+                : Math.round(progress[0].progress / totalAnswers) * 100}
+              %
+            </td>
           </tr>
           {progress.slice(1).map((item, index) => (
             <tr key={index}>

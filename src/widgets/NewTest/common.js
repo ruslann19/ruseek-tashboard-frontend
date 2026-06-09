@@ -1,6 +1,10 @@
 import EventEmitter from "@/shared/utils/EventEmitter";
 
 export const newTestEventEmitter = new EventEmitter();
+export const newTestEvents = {
+  testingDone: "testing done",
+  selectedLlmsChanged: "selected llms changed",
+};
 
 export const selectItem = (item, setState) => {
   setState((prev) => {

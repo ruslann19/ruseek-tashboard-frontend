@@ -2,11 +2,10 @@ import { useEffect, useState } from "react";
 
 import tasksApi from "@/shared/api/tasks";
 import Button from "@/shared/ui/Button";
-
-// import autoAlert from "@/shared/utils/autoAlert";
+import autoAlert from "@/shared/utils/autoAlert";
 
 import styles from "./NewTest.module.css";
-import { newTestEventEmitter } from "./common";
+import { newTestEventEmitter, newTestEvents } from "./common";
 
 const monthNumberToName = (monthNumber) => {
   const mapper = {
@@ -52,7 +51,7 @@ const BenchmarkVersionForm = ({
 
     fetchData();
 
-    newTestEventEmitter.on("testing done", async () => {
+    newTestEventEmitter.on(newTestEvents.testingDone, async () => {
       const select = document.getElementById("version-select");
       select.selectedIndex = 0;
 
@@ -74,22 +73,18 @@ const BenchmarkVersionForm = ({
       });
     },
     onReady: () => {
-      // TODO: Вернуть это после тестирования
-      // if (benchmarkVersionState.benchmarkVersion === null) {
-      //   autoAlert("Версия бенчмарка не выбрана");
-      //   return;
-      // }
-
-      // TODO: Убрать это после тестирования
-      const select = document.getElementById("version-select");
-      select.selectedIndex = 2;
+      if (benchmarkVersionState.benchmarkVersion === null) {
+        autoAlert("Версия бенчмарка не выбрана");
+        return;
+      }
 
       setBenchmarkVersionState((prev) => {
         return { ...prev, isReady: true };
       });
 
-      const tmpBenchmarkVersion = { year: 2026, month: 5 };
-      updateFormData({ benchmarkVersion: tmpBenchmarkVersion });
+      updateFormData({
+        benchmarkVersion: benchmarkVersionState.benchmarkVersion,
+      });
 
       nextStep();
     },

@@ -4,6 +4,7 @@ import llmsApi from "@/shared/api/llms";
 import HiddableList from "@/shared/ui/HiddableList";
 
 import styles from "./NewTest.module.css";
+import { newTestEventEmitter, newTestEvents } from "./common";
 import { selectItem, unselectItem } from "./common";
 
 const SelectLlmsForm = ({ updateFormData, isTestingStarted }) => {
@@ -20,22 +21,9 @@ const SelectLlmsForm = ({ updateFormData, isTestingStarted }) => {
   useEffect(() => {
     const fetchData = async () => {
       const llms = await llmsApi.getAll();
-      // TODO: вернуть этот код
-      // setLlmsState((prev) => {
-      //   return { ...prev, notSelectedItems: llms };
-      // });
-
-      // TODO: убрать этот код
-      const firstLlm = llms[0];
-      const otherLlms = llms.slice(1);
       setLlmsState((prev) => {
-        return {
-          ...prev,
-          selectedItems: [firstLlm],
-          notSelectedItems: otherLlms,
-        };
+        return { ...prev, notSelectedItems: llms };
       });
-      updateFormData({ selectedModels: [firstLlm] });
     };
 
     fetchData();
@@ -46,6 +34,7 @@ const SelectLlmsForm = ({ updateFormData, isTestingStarted }) => {
     selectItem(llm, setLlmsState);
 
     updateFormData({ selectedModels: [...llmsState.selectedItems, llm] });
+    newTestEventEmitter.emit(newTestEvents.selectedLlmsChanged);
   };
   const unselectLlm = (llm) => {
     unselectItem(llm, setLlmsState);
@@ -54,6 +43,7 @@ const SelectLlmsForm = ({ updateFormData, isTestingStarted }) => {
       (currentLlm) => currentLlm.id !== llm.id,
     );
     updateFormData({ selectedModels: filteredLlms });
+    newTestEventEmitter.emit(newTestEvents.selectedLlmsChanged);
   };
 
   return (

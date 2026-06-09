@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import tasksApi from "@/shared/api/tasks";
 import Button from "@/shared/ui/Button";
 import HiddableList from "@/shared/ui/HiddableList";
+import autoAlert from "@/shared/utils/autoAlert";
 
 import styles from "./NewTest.module.css";
 import {
@@ -57,14 +58,8 @@ const SelectTasksForm = ({
       const selectedTasks = [...tasksState.selectedItems];
 
       if (tasksState.selectedItems.length === 0) {
-        // TODO: вернуть это после тестирования
-        //   autoAlert("Нужно выбрать хотя бы одну задачу");
-        //   return;
-
-        // TODO: убрать это после тестирования
-        const firstNotSelectedTask = tasksState.notSelectedItems[0];
-        selectTask(firstNotSelectedTask);
-        selectedTasks.push(firstNotSelectedTask);
+        autoAlert("Нужно выбрать хотя бы одну задачу");
+        return;
       }
 
       makeStateReady(setTasksState);
