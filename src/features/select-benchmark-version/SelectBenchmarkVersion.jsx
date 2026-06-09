@@ -55,7 +55,7 @@ const SelectBenchmarkVersion = ({
   const [benchmarkVersionState, setBenchmarkVersionState] = useState({
     benchmarkVersion: null,
     isReady: false,
-    potentialBenchmarkVersions: [],
+    loadedBenchmarkVersions: [],
   });
 
   //   useEffect
@@ -64,23 +64,23 @@ const SelectBenchmarkVersion = ({
       const neededVersions = await getNeededVersions(versionsCategory);
 
       setBenchmarkVersionState((prev) => {
-        return { ...prev, potentialBenchmarkVersions: neededVersions };
+        return { ...prev, loadedBenchmarkVersions: neededVersions };
       });
     };
 
     fetchData();
 
     eventEmitter.on(events.testingDone, async () => {
-      const select = document.getElementById("version-select");
-      select.selectedIndex = 0;
-
       const neededVersions = await getNeededVersions(versionsCategory);
 
       setBenchmarkVersionState({
         benchmarkVersion: null,
         isReady: false,
-        potentialBenchmarkVersions: neededVersions,
+        loadedBenchmarkVersions: neededVersions,
       });
+
+      const select = document.getElementById("version-select");
+      select.selectedIndex = 0;
     });
   }, []);
 
@@ -140,7 +140,7 @@ const SelectBenchmarkVersion = ({
         <option value="null" key={"Версия бенчмарка"}>
           Версия бенчмарка
         </option>
-        {benchmarkVersionState.potentialBenchmarkVersions.map((version) => (
+        {benchmarkVersionState.loadedBenchmarkVersions.map((version) => (
           <option value={JSON.stringify(version)} key={JSON.stringify(version)}>
             {`${monthNumberToName(version.month)} ${version.year}`}
           </option>

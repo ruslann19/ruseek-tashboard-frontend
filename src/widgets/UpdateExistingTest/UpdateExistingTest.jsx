@@ -2,10 +2,9 @@ import { useState } from "react";
 
 import SelectBenchmarkVersion from "@/features/select-benchmark-version";
 
-import EventEmitter from "@/shared/utils/EventEmitter";
-
-const localEventEmitter = new EventEmitter();
-const localEvents = {};
+import SelectLlmsAndTasks from "./SelectLlmsAndTasks";
+import Testing from "./Testing";
+import { localEventEmitter, localEvents } from "./common";
 
 const UpdateExistingTest = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -13,9 +12,11 @@ const UpdateExistingTest = () => {
   const [formData, setFormData] = useState({
     benchmarkVersion: {},
     oldTasks: [],
-    oldModels: [],
+    oldLlms: [],
+    deletedTasks: [],
+    deletedLlms: [],
     newTasks: [],
-    newModels: [],
+    newLlms: [],
   });
   const updateFormData = (newData) => {
     setFormData((prev) => ({ ...prev, ...newData }));
@@ -31,6 +32,24 @@ const UpdateExistingTest = () => {
         eventEmitter={localEventEmitter}
         events={localEvents}
       />
+
+      {currentStep >= 2 && (
+        <SelectLlmsAndTasks
+          formData={formData}
+          setFormData={setFormData}
+          isTestingStarted={isTestingStarted}
+          setCurrentStep={setCurrentStep}
+        />
+      )}
+
+      {currentStep >= 3 && (
+        <Testing
+          formData={formData}
+          isTestingStarted={isTestingStarted}
+          setIsTestingStarted={setIsTestingStarted}
+          setCurrentStep={setCurrentStep}
+        />
+      )}
     </div>
   );
 };

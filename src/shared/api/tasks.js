@@ -13,6 +13,16 @@ const tasksApi = {
     }
   },
 
+  getById: async (taskId) => {
+    try {
+      const response = await fetch(`${apiUrl}/${taskId}`);
+      const task = await response.json();
+      return task;
+    } catch (error) {
+      console.error("Ошибка при загрузке задачи:", error);
+    }
+  },
+
   getByMonth: async (year, month) => {
     const params = {
       year: year,
@@ -28,16 +38,6 @@ const tasksApi = {
     return await response.json();
   },
 
-  getById: async (taskId) => {
-    try {
-      const response = await fetch(`${apiUrl}/${taskId}`);
-      const task = await response.json();
-      return task;
-    } catch (error) {
-      console.error("Ошибка при загрузке задачи:", error);
-    }
-  },
-
   add: async (task) => {
     try {
       const response = await fetch(apiUrl, {
@@ -50,26 +50,6 @@ const tasksApi = {
       return addedTask;
     } catch (error) {
       console.log("Ошибка при добавлении задачи:", error);
-    }
-  },
-
-  parseGame: async (sourceUrl, publishedDate) => {
-    const body = {
-      source_url: sourceUrl,
-      published_date: publishedDate,
-    };
-
-    try {
-      const response = await fetch(`${apiUrl}/collect`, {
-        method: "POST",
-        headers: headers,
-        body: JSON.stringify(body),
-      });
-
-      const addedTasks = await response.json();
-      return addedTasks;
-    } catch (error) {
-      console.log("Ошибка при парсинге игры:", error);
     }
   },
 
