@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import NewTest from "@/widgets/NewTest/NewTest";
+import UpdateExistingTest from "@/widgets/UpdateExistingTest";
 
 import HeaderItems from "@/shared/ui/HeaderItems";
 
@@ -10,13 +11,21 @@ const items = [
 ];
 
 const TestLlmsPage = () => {
-  const [activeItem, setActiveItem] = useState(items[0]);
+  const ACTIVE_ITEM_KEY = "test-llms-active-item";
+  const savedActiveItem = localStorage.getItem(ACTIVE_ITEM_KEY);
+  const [activeItem, setActiveItem] = useState(
+    savedActiveItem ? savedActiveItem : items[0],
+  );
+
+  useEffect(() => {
+    localStorage.setItem(ACTIVE_ITEM_KEY, activeItem);
+  }, [activeItem]);
 
   let content = null;
   if (activeItem === items[0]) {
     content = <NewTest />;
   } else if (activeItem === items[1]) {
-    content = <div>меняем старую версию</div>;
+    content = <UpdateExistingTest />;
   }
 
   return (

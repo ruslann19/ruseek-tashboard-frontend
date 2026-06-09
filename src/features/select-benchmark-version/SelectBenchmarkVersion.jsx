@@ -4,8 +4,7 @@ import tasksApi from "@/shared/api/tasks";
 import Button from "@/shared/ui/Button";
 import autoAlert from "@/shared/utils/autoAlert";
 
-import styles from "./NewTest.module.css";
-import { newTestEventEmitter, newTestEvents } from "./common";
+import styles from "./SelectBenchmarkVersion.module.css";
 
 const monthNumberToName = (monthNumber) => {
   const mapper = {
@@ -26,10 +25,29 @@ const monthNumberToName = (monthNumber) => {
   return mapper[monthNumber];
 };
 
-const BenchmarkVersionForm = ({
+const availableVersionCategories = {
+  existing: "existing",
+  potential: "potential",
+};
+
+const getNeededVersions = async (versionsCategory) => {
+  const versions = await tasksApi.getBenchmarkVersions();
+
+  if (versionsCategory === availableVersionCategories.potential) {
+    return versions.potential;
+  }
+  if (versionsCategory === availableVersionCategories.existing) {
+    return versions.existing;
+  }
+};
+
+const SelectBenchmarkVersion = ({
   updateFormData,
   setCurrentStep,
   isTestingStarted,
+  versionsCategory,
+  eventEmitter,
+  events,
 }) => {
   const nextStep = () => setCurrentStep((prev) => prev + 1);
 
@@ -43,24 +61,25 @@ const BenchmarkVersionForm = ({
   //   useEffect
   useEffect(() => {
     const fetchData = async () => {
-      const versions = await tasksApi.getBenchmarkVersions();
+      const neededVersions = await getNeededVersions(versionsCategory);
+
       setBenchmarkVersionState((prev) => {
-        return { ...prev, potentialBenchmarkVersions: versions.potential };
+        return { ...prev, potentialBenchmarkVersions: neededVersions };
       });
     };
 
     fetchData();
 
-    newTestEventEmitter.on(newTestEvents.testingDone, async () => {
+    eventEmitter.on(events.testingDone, async () => {
       const select = document.getElementById("version-select");
       select.selectedIndex = 0;
 
-      const versions = await tasksApi.getBenchmarkVersions();
+      const neededVersions = await getNeededVersions(versionsCategory);
 
       setBenchmarkVersionState({
         benchmarkVersion: null,
         isReady: false,
-        potentialBenchmarkVersions: versions.potential,
+        potentialBenchmarkVersions: neededVersions,
       });
     });
   }, []);
@@ -98,6 +117,17 @@ const BenchmarkVersionForm = ({
     },
   };
 
+  const isVersionCategoryCorrect = Object.values(
+    availableVersionCategories,
+  ).includes(versionsCategory);
+  if (!isVersionCategoryCorrect) {
+    console.error(
+      "Указана недопустимая категория версий бенчмарка:",
+      versionsCategory,
+    );
+    return;
+  }
+
   return (
     <form className={styles.flexRow}>
       <div>Выберите версию бенчмарка:</div>
@@ -132,4 +162,4 @@ const BenchmarkVersionForm = ({
   );
 };
 
-export default BenchmarkVersionForm;
+export default SelectBenchmarkVersion;

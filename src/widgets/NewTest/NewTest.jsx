@@ -1,10 +1,12 @@
 import { useState } from "react";
 
-import BenchmarkVersionForm from "./BenchmarkVersionForm";
+import SelectBenchmarkVersion from "@/features/select-benchmark-version";
+
 import styles from "./NewTest.module.css";
 import SelectLlmsForm from "./SelectLlmsForm";
 import SelectTasksForm from "./SelectTasksForm";
 import Testing from "./Testing";
+import { newTestEventEmitter, newTestEvents } from "./common";
 
 const NewTest = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -26,10 +28,13 @@ const NewTest = () => {
         isTestingStarted={isTestingStarted}
       />
 
-      <BenchmarkVersionForm
+      <SelectBenchmarkVersion
         updateFormData={updateFormData}
         setCurrentStep={setCurrentStep}
         isTestingStarted={isTestingStarted}
+        versionsCategory={"potential"}
+        eventEmitter={newTestEventEmitter}
+        events={newTestEvents}
       />
 
       {currentStep >= 2 && (
