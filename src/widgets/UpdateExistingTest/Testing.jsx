@@ -132,7 +132,7 @@ const Testing = ({
               <td>{progress[0].llmName}</td>
               <td>{progress[0].solvedTasks}</td>
               <td>
-                {Math.round(progress[0].solvedTasks / totalAnswers) * 100}%
+                {Math.round((progress[0].solvedTasks / totalAnswers) * 100)}%
               </td>
             </tr>
             {progress.slice(1).map((item, index) => (

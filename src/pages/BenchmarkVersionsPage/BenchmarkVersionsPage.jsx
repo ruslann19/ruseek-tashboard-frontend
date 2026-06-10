@@ -58,7 +58,6 @@ const BenchmarkVersionsPage = () => {
   };
 
   const onDownloadAllResults = async () => {
-    console.log("download");
     const allTasks = await tasksApi.getAll();
     const allLlms = await llmsApi.getAll();
     const allBenchmarkVersions = await benchmarkVersionsApi.getAll();

@@ -98,18 +98,15 @@ const Testing = ({
     };
 
     ws.onopen = () => {
-      console.log("ws open");
       ws.send(JSON.stringify(formDataForSending));
     };
 
     ws.onmessage = (event) => {
-      console.log("ws message");
       const message = JSON.parse(event.data);
       updateProgress(message);
     };
 
     ws.onclose = () => {
-      console.log("ws close");
       setIsTestingFinished(true);
     };
 
@@ -143,7 +140,7 @@ const Testing = ({
               <td>
                 {totalAnswers === 0
                   ? 0
-                  : Math.round(progress[0].progress / totalAnswers) * 100}
+                  : Math.round((progress[0].progress / totalAnswers) * 100)}
                 %
               </td>
             </tr>
