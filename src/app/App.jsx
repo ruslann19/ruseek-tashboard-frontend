@@ -1,4 +1,5 @@
 import AddTasksPage from "@/pages/AddTasksPage";
+import AnswersPage from "@/pages/AnswersPage";
 import BalancePage from "@/pages/BalancePage";
 import BenchmarkVersionPage from "@/pages/BenchmarkVersionPage/";
 import BenchmarkVersionsPage from "@/pages/BenchmarkVersionsPage";
@@ -24,6 +25,7 @@ const App = () => {
     "/llms": LlmsPage,
     "/benchmark-versions": BenchmarkVersionsPage,
     "/benchmark-versions/:id": BenchmarkVersionPage,
+    "/benchmark-versions/:benchmarkVersionId/:llmId": AnswersPage,
     "/test-llms": TestLlmsPage,
     "/balance": BalancePage,
     "*": PageNotFound,

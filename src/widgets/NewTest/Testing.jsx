@@ -125,53 +125,45 @@ const Testing = ({
   return (
     <div>
       <div className={styles.flexRow}>
-        <div>
-          <div>
-            benchmarkVersion: {JSON.stringify(formData.benchmarkVersion)}
-          </div>
-          <div>selected tasks: {formData.selectedTasks.length}</div>
-          <div>selected models: {formData.selectedModels.length}</div>
-        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>LLM</th>
+              <th>Решено задач</th>
+              <th>Процент выполнения</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{progress[0].llmName}</td>
+              <td>{progress[0].progress}</td>
+              <td>
+                {totalAnswers === 0
+                  ? 0
+                  : Math.round(progress[0].progress / totalAnswers) * 100}
+                %
+              </td>
+            </tr>
+            {progress.slice(1).map((item, index) => (
+              <tr key={index}>
+                <td>{item.llmName}</td>
+                <td>{item.progress}</td>
+                <td>{Math.round((item.progress / totalTasks) * 100)}%</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
         <div>
           <Button onClick={onClick} disabled={isTestingStarted}>
             Запустить тестирование
           </Button>
         </div>
-      </div>
-
-      <table>
-        <thead>
-          <tr>
-            <th>LLM</th>
-            <th>Решено задач</th>
-            <th>Процент выполнения</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{progress[0].llmName}</td>
-            <td>{progress[0].progress}</td>
-            <td>
-              {totalAnswers === 0
-                ? 0
-                : Math.round(progress[0].progress / totalAnswers) * 100}
-              %
-            </td>
-          </tr>
-          {progress.slice(1).map((item, index) => (
-            <tr key={index}>
-              <td>{item.llmName}</td>
-              <td>{item.progress}</td>
-              <td>{Math.round((item.progress / totalTasks) * 100)}%</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      <div>
-        <Button onClick={onClickDone} disabled={!isTestingFinished}>
-          Готово
-        </Button>
+        <div>
+          <Button onClick={onClickDone} disabled={!isTestingFinished}>
+            Готово
+          </Button>
+        </div>
       </div>
     </div>
   );

@@ -295,7 +295,7 @@ const SelectLlmsAndTasks = ({
                   unselectLlm(llm);
                 }}
               />
-              <span>{JSON.stringify(llm)}</span>
+              <span>{llm.llm_name}</span>
             </div>
           ))}
         </HiddableList>
@@ -313,7 +313,7 @@ const SelectLlmsAndTasks = ({
                   selectLlm(llm);
                 }}
               />
-              <span>{JSON.stringify(llm)}</span>
+              <span>{llm.llm_name}</span>
             </div>
           ))}
         </HiddableList>

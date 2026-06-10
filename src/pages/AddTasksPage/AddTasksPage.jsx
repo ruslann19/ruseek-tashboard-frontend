@@ -37,7 +37,7 @@ const ParseGame = () => {
       published_date: publishedDate,
     };
 
-    const ws = new WebSocket("ws://localhost:8000/ws/");
+    const ws = new WebSocket("ws://localhost:8000/ws/parse-game");
 
     ws.onopen = () => {
       ws.send(JSON.stringify(gameMetadata));
@@ -65,6 +65,13 @@ const ParseGame = () => {
 
   return (
     <>
+      <div>
+        Нужно вставить ссылку на пост с{" "}
+        <a href="http://svoya-igra.org/" target="_blank">
+          форума
+        </a>{" "}
+        телепередачи "Своя игра"
+      </div>
       <form className={styles.parseGameForm}>
         <Input
           type={"text"}

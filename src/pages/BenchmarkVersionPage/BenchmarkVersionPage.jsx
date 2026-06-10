@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { answersApi, benchmarkVersionsApi, llmsApi } from "@/shared/api";
+import RouterLink from "@/shared/ui/RouterLink";
 
 const BenchmarkVersionPage = ({ params }) => {
   const benchmarkVersionId = params.id;
@@ -60,7 +61,13 @@ const BenchmarkVersionPage = ({ params }) => {
         <tbody>
           {llms.map((llm) => (
             <tr key={llm.id}>
-              <td>{llm.llm_name}</td>
+              <td>
+                <RouterLink
+                  to={`/benchmark-versions/${benchmarkVersionId}/${llm.id}`}
+                >
+                  {llm.llm_name}
+                </RouterLink>
+              </td>
               <td>{calculateAccuracy(llm.id)}%</td>
             </tr>
           ))}

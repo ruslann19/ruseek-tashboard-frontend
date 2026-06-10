@@ -8,8 +8,8 @@ const llmsApi = {
     return await response.json();
   },
 
-  getById: async (taskId) => {
-    const response = await fetch(`${apiUrl}/${taskId}`);
+  getById: async (llmId) => {
+    const response = await fetch(`${apiUrl}/${llmId}`);
     return await response.json();
   },
 

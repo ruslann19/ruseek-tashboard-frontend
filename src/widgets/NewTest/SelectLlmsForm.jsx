@@ -68,7 +68,7 @@ const SelectLlmsForm = ({ updateFormData, isTestingStarted }) => {
                 unselectLlm(llm);
               }}
             />
-            <span>{JSON.stringify(llm)}</span>
+            <span>{llm.llm_name}</span>
           </div>
         ))}
       </HiddableList>
@@ -90,7 +90,7 @@ const SelectLlmsForm = ({ updateFormData, isTestingStarted }) => {
                 selectLlm(llm);
               }}
             />
-            <span>{JSON.stringify(llm)}</span>
+            <span>{llm.llm_name}</span>
           </div>
         ))}
       </HiddableList>
