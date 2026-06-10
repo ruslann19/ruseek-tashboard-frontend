@@ -98,15 +98,18 @@ const Testing = ({
     };
 
     ws.onopen = () => {
+      console.log("ws open");
       ws.send(JSON.stringify(formDataForSending));
     };
 
     ws.onmessage = (event) => {
+      console.log("ws message");
       const message = JSON.parse(event.data);
       updateProgress(message);
     };
 
     ws.onclose = () => {
+      console.log("ws close");
       setIsTestingFinished(true);
     };
 
