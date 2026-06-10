@@ -68,7 +68,7 @@ const BenchmarkVersionPage = ({ params }) => {
                   {llm.llm_name}
                 </RouterLink>
               </td>
-              <td>{calculateAccuracy(llm.id)}%</td>
+              <td>{calculateAccuracy(llm.id) * 100}%</td>
             </tr>
           ))}
         </tbody>
