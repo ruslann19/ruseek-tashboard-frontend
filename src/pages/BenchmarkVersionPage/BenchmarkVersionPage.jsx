@@ -30,6 +30,10 @@ const BenchmarkVersionPage = ({ params }) => {
   const [answers, setAnswers] = useState([]);
   const [llms, setLlms] = useState([]);
 
+  const tasksIds = answers.map((answer) => answer.task_id);
+  const tasksIdsUnique = [...new Set(tasksIds)];
+  const totalTasks = tasksIdsUnique.length;
+
   useEffect(() => {
     const fetchAnswers = async () => {
       const loadedVersion =
