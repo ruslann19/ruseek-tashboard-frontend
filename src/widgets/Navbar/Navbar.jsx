@@ -18,8 +18,8 @@ const navbarItems = [
     redirectTo: "/llms",
   },
   {
-    title: "Answers",
-    redirectTo: "/answers",
+    title: "Benchmark versions",
+    redirectTo: "/benchmark-versions",
   },
   {
     title: "Test LLMs",

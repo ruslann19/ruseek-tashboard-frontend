@@ -89,7 +89,7 @@ const Testing = ({
     autoAlert("Запускаем тестирование");
     setIsTestingStarted(true);
 
-    const ws = new WebSocket("ws://localhost:8000/ws/test-llms");
+    const ws = new WebSocket("ws://localhost:8000/ws/create-benchmark-version");
 
     const formDataForSending = {
       benchmark_version: formData.benchmarkVersion,

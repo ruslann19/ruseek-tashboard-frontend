@@ -21,17 +21,15 @@ const SelectTasksForm = ({
 }) => {
   const nextStep = () => setCurrentStep((prev) => prev + 1);
 
-  //   tasks
   const tasksInitState = {
     selectedItems: [],
     notSelectedItems: [],
-    showSelectedItems: true,
+    showSelectedItems: false,
     showNotSelectedItems: true,
     isReady: false,
   };
   const [tasksState, setTasksState] = useState(tasksInitState);
 
-  //   useEffect
   useEffect(() => {
     const fetchData = async () => {
       const tasks = await tasksApi.getByMonth(
@@ -46,7 +44,6 @@ const SelectTasksForm = ({
     fetchData();
   }, []);
 
-  //   tasks - functions
   const selectTask = (task) => {
     selectItem(task, setTasksState);
   };

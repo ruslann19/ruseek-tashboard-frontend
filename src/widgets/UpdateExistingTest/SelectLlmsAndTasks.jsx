@@ -62,8 +62,7 @@ const SelectLlmsAndTasks = ({
 
       // Скачать ответы по выбранной версии бенчмарка
       const answersByBenchmarkVersion = await answersApi.getByBenchmarkVersion(
-        formData.benchmarkVersion.year,
-        formData.benchmarkVersion.month,
+        formData.benchmarkVersion.id,
       );
 
       // По ответам определить, какие LLM участвовали в выбранной версии бенчмарка, а какие нет

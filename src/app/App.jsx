@@ -1,6 +1,7 @@
 import AddTasksPage from "@/pages/AddTasksPage";
-import AnswersPage from "@/pages/AnswersPage/AnswersPage";
 import BalancePage from "@/pages/BalancePage";
+import BenchmarkVersionPage from "@/pages/BenchmarkVersionPage/";
+import BenchmarkVersionsPage from "@/pages/BenchmarkVersionsPage";
 import LlmsPage from "@/pages/LlmsPage";
 import PageNotFound from "@/pages/PageNotFound";
 import TaskPage from "@/pages/TaskPage";
@@ -21,7 +22,8 @@ const App = () => {
     "/add-tasks": AddTasksPage,
     "/tasks/:id": TaskPage,
     "/llms": LlmsPage,
-    "/answers": AnswersPage,
+    "/benchmark-versions": BenchmarkVersionsPage,
+    "/benchmark-versions/:id": BenchmarkVersionPage,
     "/test-llms": TestLlmsPage,
     "/balance": BalancePage,
     "*": PageNotFound,

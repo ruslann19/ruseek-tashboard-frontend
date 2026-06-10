@@ -4,60 +4,38 @@ const apiUrl = `${apiHost}/llms`;
 
 const llmsApi = {
   getAll: async () => {
-    try {
-      const response = await fetch(apiUrl);
-      const llms = await response.json();
-      return llms;
-    } catch (error) {
-      console.error("Ошибка при загрузке моделей:", error);
-    }
+    const response = await fetch(apiUrl);
+    return await response.json();
   },
 
   getById: async (taskId) => {
-    try {
-      const response = await fetch(`${apiUrl}/${taskId}`);
-      const llm = await response.json();
-      return llm;
-    } catch (error) {
-      console.error("Ошибка при загрузке модели:", error);
-    }
+    const response = await fetch(`${apiUrl}/${taskId}`);
+    return await response.json();
   },
 
   add: async (llm) => {
-    try {
-      const response = await fetch(apiUrl, {
-        method: "POST",
-        headers: headers,
-        body: JSON.stringify(llm),
-      });
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(llm),
+    });
 
-      return response;
-    } catch (error) {
-      console.log("Ошибка при добавлении модели:", error);
-    }
+    return response;
   },
 
   delete: async (llmId) => {
-    try {
-      await fetch(`${apiUrl}/${llmId}`, {
-        method: "DELETE",
-        headers: headers,
-      });
-    } catch (error) {
-      console.log("Ошибка при удалении модели:", error);
-    }
+    await fetch(`${apiUrl}/${llmId}`, {
+      method: "DELETE",
+      headers: headers,
+    });
   },
 
   put: async (llm) => {
-    try {
-      await fetch(`${apiUrl}/${llm.id}`, {
-        method: "PUT",
-        headers: headers,
-        body: JSON.stringify(llm),
-      });
-    } catch (error) {
-      console.log("Ошибка при изменении модели:", error);
-    }
+    await fetch(`${apiUrl}/${llm.id}`, {
+      method: "PUT",
+      headers: headers,
+      body: JSON.stringify(llm),
+    });
   },
 };
 

@@ -4,23 +4,13 @@ const apiUrl = `${apiHost}/tasks`;
 
 const tasksApi = {
   getAll: async () => {
-    try {
-      const response = await fetch(apiUrl);
-      const tasks = await response.json();
-      return tasks;
-    } catch (error) {
-      console.error("Ошибка при загрузке задач:", error);
-    }
+    const response = await fetch(apiUrl);
+    return await response.json();
   },
 
   getById: async (taskId) => {
-    try {
-      const response = await fetch(`${apiUrl}/${taskId}`);
-      const task = await response.json();
-      return task;
-    } catch (error) {
-      console.error("Ошибка при загрузке задачи:", error);
-    }
+    const response = await fetch(`${apiUrl}/${taskId}`);
+    return await response.json();
   },
 
   getByMonth: async (year, month) => {
@@ -33,47 +23,29 @@ const tasksApi = {
     return await response.json();
   },
 
-  getBenchmarkVersions: async () => {
-    const response = await fetch(`${apiUrl}/benchmark-versions`);
+  add: async (task) => {
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(task),
+    });
+
     return await response.json();
   },
 
-  add: async (task) => {
-    try {
-      const response = await fetch(apiUrl, {
-        method: "POST",
-        headers: headers,
-        body: JSON.stringify(task),
-      });
-
-      const addedTask = await response.json();
-      return addedTask;
-    } catch (error) {
-      console.log("Ошибка при добавлении задачи:", error);
-    }
-  },
-
   delete: async (taskId) => {
-    try {
-      await fetch(`${apiUrl}/${taskId}`, {
-        method: "DELETE",
-        headers: headers,
-      });
-    } catch (error) {
-      console.log("Ошибка при удалении задачи:", error);
-    }
+    await fetch(`${apiUrl}/${taskId}`, {
+      method: "DELETE",
+      headers: headers,
+    });
   },
 
   put: async (task) => {
-    try {
-      await fetch(`${apiUrl}/${task.id}`, {
-        method: "PUT",
-        headers: headers,
-        body: JSON.stringify(task),
-      });
-    } catch (error) {
-      console.log("Ошибка при изменении задачи:", error);
-    }
+    await fetch(`${apiUrl}/${task.id}`, {
+      method: "PUT",
+      headers: headers,
+      body: JSON.stringify(task),
+    });
   },
 };
 

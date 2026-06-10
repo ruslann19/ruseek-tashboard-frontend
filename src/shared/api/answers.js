@@ -4,33 +4,18 @@ const apiUrl = `${apiHost}/answers`;
 
 const answersApi = {
   getAll: async () => {
-    try {
-      const response = await fetch(apiUrl);
-      const answers = await response.json();
-      return answers;
-    } catch (error) {
-      console.error("Ошибка при загрузке ответов:", error);
-    }
+    const response = await fetch(apiUrl);
+    return await response.json();
   },
 
   getById: async (answerId) => {
-    try {
-      const response = await fetch(`${apiUrl}/${answerId}`);
-      const answer = await response.json();
-      return answer;
-    } catch (error) {
-      console.error("Ошибка при загрузке задачи:", error);
-    }
+    const response = await fetch(`${apiUrl}/${answerId}`);
+    return await response.json();
   },
 
-  getByBenchmarkVersion: async (year, month) => {
-    const params = {
-      year: year,
-      month: month,
-    };
-    const queryString = new URLSearchParams(params).toString();
+  getByBenchmarkVersion: async (benchmarkVersionId) => {
     const response = await fetch(
-      `${apiUrl}/by-benchmark-version?${queryString}`,
+      `${apiUrl}/by-benchmark-version/${benchmarkVersionId}`,
     );
     return await response.json();
   },

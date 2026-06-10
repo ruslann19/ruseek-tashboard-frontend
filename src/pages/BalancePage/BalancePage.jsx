@@ -1,26 +1,8 @@
 import { useEffect, useState } from "react";
 
-import { apiHost } from "@/shared/api/common";
+import { balanceApi } from "@/shared/api";
 
 import styles from "./BalancePage.module.css";
-
-const apiUrl = `${apiHost}/balance`;
-
-const balanceApi = {
-  getRouterAiBalance: async () => {
-    const url = `${apiUrl}/router-ai`;
-    const response = await fetch(url);
-    const balance = await response.json();
-    return balance;
-  },
-
-  getDeepSeekBalance: async () => {
-    const url = `${apiUrl}/deepseek`;
-    const response = await fetch(url);
-    const balance = await response.json();
-    return balance;
-  },
-};
 
 const BalancePage = () => {
   const [balance, setBalance] = useState({

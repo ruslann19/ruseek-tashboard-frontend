@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import tasksApi from "@/shared/api/tasks";
+import { benchmarkVersionsApi } from "@/shared/api";
 import Button from "@/shared/ui/Button";
 import autoAlert from "@/shared/utils/autoAlert";
 
@@ -31,13 +31,11 @@ const availableVersionCategories = {
 };
 
 const getNeededVersions = async (versionsCategory) => {
-  const versions = await tasksApi.getBenchmarkVersions();
-
-  if (versionsCategory === availableVersionCategories.potential) {
-    return versions.potential;
-  }
   if (versionsCategory === availableVersionCategories.existing) {
-    return versions.existing;
+    return await benchmarkVersionsApi.getAll();
+  }
+  if (versionsCategory === availableVersionCategories.potential) {
+    return await benchmarkVersionsApi.getAllPotential();
   }
 };
 
@@ -51,14 +49,12 @@ const SelectBenchmarkVersion = ({
 }) => {
   const nextStep = () => setCurrentStep((prev) => prev + 1);
 
-  // benchmark version
   const [benchmarkVersionState, setBenchmarkVersionState] = useState({
     benchmarkVersion: null,
     isReady: false,
     loadedBenchmarkVersions: [],
   });
 
-  //   useEffect
   useEffect(() => {
     const fetchData = async () => {
       const neededVersions = await getNeededVersions(versionsCategory);

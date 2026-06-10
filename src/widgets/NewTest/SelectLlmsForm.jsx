@@ -8,16 +8,14 @@ import { newTestEventEmitter, newTestEvents } from "./common";
 import { selectItem, unselectItem } from "./common";
 
 const SelectLlmsForm = ({ updateFormData, isTestingStarted }) => {
-  //   llms
   const llmsInitState = {
     selectedItems: [],
     notSelectedItems: [],
-    showSelectedItems: true,
+    showSelectedItems: false,
     showNotSelectedItems: true,
   };
   const [llmsState, setLlmsState] = useState(llmsInitState);
 
-  //   useEffect
   useEffect(() => {
     const fetchData = async () => {
       const llms = await llmsApi.getAll();
@@ -29,7 +27,6 @@ const SelectLlmsForm = ({ updateFormData, isTestingStarted }) => {
     fetchData();
   }, []);
 
-  //   llms - functions
   const selectLlm = (llm) => {
     selectItem(llm, setLlmsState);
 
