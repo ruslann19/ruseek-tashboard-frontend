@@ -19,6 +19,25 @@ const sortingFields = [
   // { value: "llm_name", title: "имени LLM", type: "string" },
 ];
 
+const monthNumberToName = (monthNumber) => {
+  const mapper = {
+    1: "Январь",
+    2: "Февраль",
+    3: "Март",
+    4: "Апрель",
+    5: "Май",
+    6: "Июнь",
+    7: "Июль",
+    8: "Август",
+    9: "Сентябрь",
+    10: "Октябрь",
+    11: "Ноябрь",
+    12: "Декабрь",
+  };
+
+  return mapper[monthNumber];
+};
+
 const BenchmarkVersionsPage = () => {
   const [versions, setVersions] = useState([]);
 
@@ -100,7 +119,7 @@ const BenchmarkVersionsPage = () => {
         {sortedVersions.map((version, index) => (
           <div key={index}>
             <RouterLink to={`/benchmark-versions/${version.id}`}>
-              {JSON.stringify(version)}
+              {monthNumberToName(version.month)} {version.year}
             </RouterLink>
             <Button
               onClick={() => {

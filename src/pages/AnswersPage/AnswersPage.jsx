@@ -10,6 +10,25 @@ import List from "@/shared/ui/List";
 
 import styles from "./AnswersPage.module.css";
 
+const monthNumberToName = (monthNumber) => {
+  const mapper = {
+    1: "Январь",
+    2: "Февраль",
+    3: "Март",
+    4: "Апрель",
+    5: "Май",
+    6: "Июнь",
+    7: "Июль",
+    8: "Август",
+    9: "Сентябрь",
+    10: "Октябрь",
+    11: "Ноябрь",
+    12: "Декабрь",
+  };
+
+  return mapper[monthNumber];
+};
+
 const AnswersPage = ({ params }) => {
   const benchmarkVersionId = Number(params.benchmarkVersionId);
   const llmId = Number(params.llmId);
@@ -77,9 +96,12 @@ const AnswersPage = ({ params }) => {
     <div>Loading...</div>
   ) : (
     <div>
-      <div>Версия бенчмарка: {JSON.stringify(benchmarkVersion)}</div>
+      <div>
+        Версия бенчмарка: {monthNumberToName(benchmarkVersion.month)}
+        {benchmarkVersion.year}
+      </div>
       <div>Модель: {llmInfo.llm_name}</div>
-      <div>Ответы модели:</div>
+      <div>Ответы модели ({answers.length}):</div>
       <List>
         {answers.map((answer) => (
           <div key={answer.id} className={styles.answer}>

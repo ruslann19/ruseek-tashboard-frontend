@@ -66,7 +66,7 @@ const SelectLlmsAndTasks = ({
       );
 
       // По ответам определить, какие LLM участвовали в выбранной версии бенчмарка, а какие нет
-      const llmIds = answersByBenchmarkVersion.map((version) => version.llm_id);
+      const llmIds = answersByBenchmarkVersion.map((answer) => answer.llm_id);
       const llmIdsUnique = [...new Set(llmIds)];
       // Участвовавших записать в selectState.llms.selected и в formData.oldLlms
       const participatedLlms = allLlms.filter((llm) =>
@@ -79,9 +79,7 @@ const SelectLlmsAndTasks = ({
       );
 
       // С задачами - аналогично
-      const taskIds = answersByBenchmarkVersion.map(
-        (version) => version.task_id,
-      );
+      const taskIds = answersByBenchmarkVersion.map((answer) => answer.task_id);
       const taskIdsUnique = [...new Set(taskIds)];
       const usedTasks = tasksByMonth.filter((task) =>
         taskIdsUnique.includes(task.id),

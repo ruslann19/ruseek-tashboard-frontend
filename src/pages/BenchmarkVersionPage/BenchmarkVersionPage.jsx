@@ -3,6 +3,25 @@ import { useEffect, useState } from "react";
 import { answersApi, benchmarkVersionsApi, llmsApi } from "@/shared/api";
 import RouterLink from "@/shared/ui/RouterLink";
 
+const monthNumberToName = (monthNumber) => {
+  const mapper = {
+    1: "Январь",
+    2: "Февраль",
+    3: "Март",
+    4: "Апрель",
+    5: "Май",
+    6: "Июнь",
+    7: "Июль",
+    8: "Август",
+    9: "Сентябрь",
+    10: "Октябрь",
+    11: "Ноябрь",
+    12: "Декабрь",
+  };
+
+  return mapper[monthNumber];
+};
+
 const BenchmarkVersionPage = ({ params }) => {
   const benchmarkVersionId = params.id;
 
@@ -42,7 +61,7 @@ const BenchmarkVersionPage = ({ params }) => {
       (answer) => answer.is_correct === true,
     );
 
-    const accuracy = correctAnswers.length / currentLlmAnswers.length;
+    const accuracy = (100 * correctAnswers.length) / currentLlmAnswers.length;
     return accuracy;
   };
 
@@ -50,7 +69,11 @@ const BenchmarkVersionPage = ({ params }) => {
     <div>Loading...</div>
   ) : (
     <div>
-      <div>Версия бенчмарка: {JSON.stringify(benchmarkVersion)}</div>
+      <div>
+        Версия бенчмарка: {monthNumberToName(benchmarkVersion.month)}{" "}
+        {benchmarkVersion.year}
+      </div>
+      <div>Количество вопросов: {totalTasks}</div>
       <table>
         <thead>
           <tr>
@@ -68,7 +91,7 @@ const BenchmarkVersionPage = ({ params }) => {
                   {llm.llm_name}
                 </RouterLink>
               </td>
-              <td>{calculateAccuracy(llm.id) * 100}%</td>
+              <td>{calculateAccuracy(llm.id)}%</td>
             </tr>
           ))}
         </tbody>
