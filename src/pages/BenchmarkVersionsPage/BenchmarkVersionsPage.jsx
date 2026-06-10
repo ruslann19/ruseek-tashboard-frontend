@@ -1,11 +1,18 @@
 import { useEffect, useState } from "react";
 
-import { benchmarkVersionsApi } from "@/shared/api";
+import {
+  answersApi,
+  benchmarkVersionsApi,
+  llmsApi,
+  tasksApi,
+} from "@/shared/api";
 import Button from "@/shared/ui/Button";
 import Filter from "@/shared/ui/Filter";
 import List from "@/shared/ui/List";
 import RouterLink from "@/shared/ui/RouterLink";
 import sortByField from "@/shared/utils/sortByField";
+
+import styles from "./BenchmarkVersionsPage.module.css";
 
 const sortingFields = [
   { value: "id", title: "id", type: "int" },
@@ -50,6 +57,36 @@ const BenchmarkVersionsPage = () => {
     }
   };
 
+  const onDownloadAllResults = async () => {
+    console.log("download");
+    const allTasks = await tasksApi.getAll();
+    const allLlms = await llmsApi.getAll();
+    const allBenchmarkVersions = await benchmarkVersionsApi.getAll();
+    const allAnswers = await answersApi.getAll();
+
+    const data = {
+      tasks: allTasks,
+      llms: allLlms,
+      benchmark_versions: allBenchmarkVersions,
+      answers: allAnswers,
+    };
+    const content = JSON.stringify(data);
+
+    const blob = new Blob([content], { type: "text/plain" });
+
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "ruseek_tashboard_results.json";
+
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <section>
       <Filter
@@ -57,6 +94,9 @@ const BenchmarkVersionsPage = () => {
         setFilterParams={setFilterParams}
         sortingFields={sortingFields}
       />
+      <div className={styles.centeringContainer}>
+        <Button onClick={onDownloadAllResults}>Скачать все результаты</Button>
+      </div>
       <List>
         {sortedVersions.map((version, index) => (
           <div key={index}>
