@@ -34,21 +34,19 @@ const BalancePage = () => {
     getBalance();
   }, []);
 
+  const routerAiContent = balance.routerAi
+    ? `${balance.routerAi.rubles.toFixed(2)} рублей`
+    : "Ошибка при загрузке данных";
+
+  const deepseekContent = balance.deepseek
+    ? `${balance.deepseek.yuan.toFixed(2)} юаней (примерно ${balance.deepseek.rubles.toFixed(2)} рублей)`
+    : "Ошибка при загрузке данных";
+
   return (
     <section className={styles.balanceContainer}>
       <div>Страница для проверки баланса</div>
-      <div>
-        RouterAI:{" "}
-        {isLoading
-          ? "Loading..."
-          : `${balance.routerAi.rubles.toFixed(2)} рублей`}
-      </div>
-      <div>
-        DeepSeek:{" "}
-        {isLoading
-          ? "Loading..."
-          : `${balance.deepseek.yuan.toFixed(2)} юаней (примерно ${balance.deepseek.rubles.toFixed(2)} рублей)`}
-      </div>
+      <div>RouterAI: {isLoading ? "Loading..." : routerAiContent}</div>
+      <div>DeepSeek: {isLoading ? "Loading..." : deepseekContent}</div>
     </section>
   );
 };

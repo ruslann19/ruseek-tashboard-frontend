@@ -49,6 +49,10 @@ const Testing = ({
     0,
   );
   const getTotalTasks = (llmId) => {
+    if (tasksToSolve.length === 0) {
+      return 0;
+    }
+
     const llmInfo = tasksToSolve.find((llm) => llm.llmId === llmId);
     return llmInfo.totalTasks;
   };

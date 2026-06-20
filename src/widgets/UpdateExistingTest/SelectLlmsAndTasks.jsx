@@ -268,6 +268,7 @@ const SelectLlmsAndTasks = ({
         newLlms: [],
       };
     });
+    setCurrentStep(2);
   };
 
   return (
