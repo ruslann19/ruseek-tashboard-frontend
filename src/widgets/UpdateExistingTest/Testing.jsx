@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import { wsUrl } from "@/shared/api/common";
 import Button from "@/shared/ui/Button";
 import autoAlert from "@/shared/utils/autoAlert";
 
@@ -83,7 +84,7 @@ const Testing = ({
     autoAlert("Запускаем тестирование");
     setIsTestingStarted(true);
 
-    const ws = new WebSocket("ws://localhost:8000/ws/update-benchmark-version");
+    const ws = new WebSocket(`${wsUrl}/ws/update-benchmark-version`);
 
     const formDataForSending = {
       benchmark_version: formData.benchmarkVersion,

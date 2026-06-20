@@ -4,6 +4,7 @@ import { TasksProvider } from "@/entities/task";
 
 import AddTask from "@/features/add-task";
 
+import { wsUrl } from "@/shared/api/common";
 import Button from "@/shared/ui/Button";
 import HeaderItems from "@/shared/ui/HeaderItems";
 import Input from "@/shared/ui/Input";
@@ -37,7 +38,7 @@ const ParseGame = () => {
       published_date: publishedDate,
     };
 
-    const ws = new WebSocket("ws://localhost:8000/ws/parse-game");
+    const ws = new WebSocket(`${wsUrl}/ws/parse-game`);
 
     ws.onopen = () => {
       ws.send(JSON.stringify(gameMetadata));
