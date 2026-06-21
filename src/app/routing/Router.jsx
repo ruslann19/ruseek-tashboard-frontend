@@ -1,4 +1,7 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+
+import { AuthContext } from "@/shared/contexts/auth";
+import navigate from "@/shared/utils/navigate";
 
 const matchPath = (path, route) => {
   const pathParts = path.split("/"); // "/tasks/123" => ["", "tasks", "123"]
@@ -46,6 +49,7 @@ export const useRoute = () => {
 
 const Router = (props) => {
   const { routes } = props;
+  const { isAuthenticated } = useContext(AuthContext);
   const path = useRoute();
 
   let currentPath = path;
@@ -69,8 +73,7 @@ const Router = (props) => {
 
         // Если значение маршрута - это строка, выполняем редирект
         if (typeof target === "string") {
-          window.history.replaceState(null, "", target);
-          window.dispatchEvent(new PopStateEvent("popstate"));
+          navigate(target);
 
           currentPath = target;
 
@@ -79,15 +82,34 @@ const Router = (props) => {
         }
 
         // Если это компонент, рендерим его как обычно
-        const Page = target;
+        const {
+          component: Page,
+          layout: Layout,
+          isProtected: isProtected,
+        } = target;
 
-        return <Page params={params} />;
+        if (isProtected && !isAuthenticated) {
+          const loginRoute = "/login";
+          navigate(loginRoute);
+          currentPath = loginRoute;
+          break;
+        }
+
+        return (
+          <Layout>
+            <Page params={params} />
+          </Layout>
+        );
       }
     }
   }
 
-  const NotFound = routes["*"];
-  return <NotFound />;
+  const { component: NotFound, layout: Layout } = routes["*"];
+  return (
+    <Layout>
+      <NotFound />
+    </Layout>
+  );
 };
 
 export default Router;

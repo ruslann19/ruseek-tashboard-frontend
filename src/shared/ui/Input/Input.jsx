@@ -5,14 +5,11 @@ const Input = (props) => {
 
   const fixedLabel = label.toLowerCase().replaceAll(" ", "_");
 
-  const inputClassName = type === "text" ? styles.input : "";
-
   return (
     <div className={styles.inputWrapper}>
       <label htmlFor={fixedLabel}>{label}</label>
       <input
         type={type}
-        className={inputClassName}
         autoComplete="off"
         name={fixedLabel}
         id={fixedLabel}
