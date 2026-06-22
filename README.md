@@ -1,16 +1,35 @@
-# React + Vite
+# RuSeek TashBoard (Backend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Репозиторий содержит клиентскую часть (фронтенд) для **RuSeek TashBoard** - обновляемого бенчмарка, предназначенного для оценки общих знаний больших языковых моделей (LLM).
 
-Currently, two official plugins are available:
+Основной репозиторий проекта: [ruslann19/ruseek-tashboard](https://github.com/ruslann19/ruseek-tashboard)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Требования к окружению
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Для развертывания и запуска приложения необходимы:
+* **Docker**
+* **Docker Compose**
+* **Файл конфигурации `.env`** в корне проекта
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Быстрый запуск
+
+1. Клонируйте репозиторий и перейдите в папку проекта:
+```bash
+git clone https://github.com/ruslann19/ruseek-tashboard-frontend.git
+cd ruseek-tashboard-frontend
+```
+
+2. Создайте файл `.env` в корневом каталоге и настройте переменные окружения. Вы можете использовать готовый пример для быстрой настройки:
+```bash
+cp .env.example .env
+```
+Ссылка на файл с примером: [.env.example](https://github.com/ruslann19/ruseek-tashboard-frontend/blob/main/.env.example)
+
+3. Запустите сборку и контейнеры в фоновом режиме:
+```bash
+docker compose up --build -d
+```
