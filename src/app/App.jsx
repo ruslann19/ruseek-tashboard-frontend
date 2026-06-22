@@ -3,7 +3,7 @@ import AnswersPage from "@/pages/AnswersPage";
 import BalancePage from "@/pages/BalancePage";
 import BenchmarkVersionPage from "@/pages/BenchmarkVersionPage/";
 import BenchmarkVersionsPage from "@/pages/BenchmarkVersionsPage";
-import LeaderBoardPage from "@/pages/LeaderBoardPage/LeaderBoardPage";
+import LeaderboardPage from "@/pages/LeaderboardPage/LeaderboardPage";
 import LlmsPage from "@/pages/LlmsPage";
 import LoginPage from "@/pages/LoginPage";
 import PageNotFound from "@/pages/PageNotFound";
@@ -38,7 +38,7 @@ const EmptyLayout = ({ children }) => <>{children}</>;
 
 const App = () => {
   const routes = {
-    "/": "/tasks",
+    "/": "/leaderboard",
     "/tasks": { component: TasksPage, layout: AdminLayout, isProtected: true },
     "/add-tasks": {
       component: AddTasksPage,
@@ -77,7 +77,7 @@ const App = () => {
       isProtected: true,
     },
     "/leaderboard": {
-      component: LeaderBoardPage,
+      component: LeaderboardPage,
       layout: GuestLayout,
       isProtected: false,
     },

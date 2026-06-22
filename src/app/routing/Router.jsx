@@ -4,11 +4,10 @@ import { AuthContext } from "@/shared/contexts/auth";
 import navigate from "@/shared/utils/navigate";
 
 const matchPath = (path, route) => {
-  const pathParts = path.split("/"); // "/tasks/123" => ["", "tasks", "123"]
-  const routeParts = route.split("/"); // "/tasks/:id" => ["", "tasks", ":id"]
+  const pathParts = path.split("/");
+  const routeParts = route.split("/");
 
   if (pathParts.length !== routeParts.length) {
-    // Маршруты не совпали
     return null;
   }
 
@@ -16,12 +15,9 @@ const matchPath = (path, route) => {
 
   for (let i = 0; i < routeParts.length; i++) {
     if (routeParts[i].startsWith(":")) {
-      // Кусок шаблона - параметр
       const paramName = routeParts[i].slice(1);
-      // Добавляем значение из динамического пути
       params[paramName] = pathParts[i];
     } else if (routeParts[i] !== pathParts[i]) {
-      // Маршруты не совпали
       return null;
     }
   }
@@ -29,59 +25,79 @@ const matchPath = (path, route) => {
   return params;
 };
 
+// Функция для парсинга query-параметров в обычный объект
+const parseQueryParams = (search) => {
+  const params = {};
+  const searchParams = new URLSearchParams(search);
+
+  searchParams.forEach((value, key) => {
+    params[key] = value;
+  });
+
+  return params;
+};
+
 export const useRoute = () => {
-  const [path, setPath] = useState(window.location.pathname);
+  // Храним весь путь без домена: и pathname, и search
+  const [url, setUrl] = useState(
+    window.location.pathname + window.location.search,
+  );
 
   useEffect(() => {
     const onLocationChange = () => {
-      setPath(window.location.pathname);
+      setUrl(window.location.pathname + window.location.search);
     };
 
+    // Слушаем стандартный назад/вперед в браузере
     window.addEventListener("popstate", onLocationChange);
+
+    // Слушаем кастомные события, если ваша функция navigate генерирует их
+    window.addEventListener("pushstate", onLocationChange);
+    window.addEventListener("replacestate", onLocationChange);
 
     return () => {
       window.removeEventListener("popstate", onLocationChange);
+      window.removeEventListener("pushstate", onLocationChange);
+      window.removeEventListener("replacestate", onLocationChange);
     };
   }, []);
 
-  return path;
+  return url;
 };
 
 const Router = (props) => {
   const { routes } = props;
   const { isAuthenticated } = useContext(AuthContext);
-  const path = useRoute();
+  const currentUrl = useRoute();
 
-  let currentPath = path;
+  // Разделяем путь и query-строку
+  const [currentPath, currentSearch] = currentUrl.split("?");
+  let activePath = currentPath;
 
-  // Для избежания циклов в редиректе будем сверяться с просмотренными маршрутами
   const searchedRoutes = [];
 
   while (true) {
-    if (searchedRoutes.includes(currentPath)) {
-      // Редирект зациклился
+    if (searchedRoutes.includes(activePath)) {
       break;
     }
 
-    searchedRoutes.push(currentPath);
+    searchedRoutes.push(activePath);
 
     for (const route in routes) {
-      const params = matchPath(currentPath, route);
+      // Сопоставляем только чистый путь (pathname) без query
+      const params = matchPath(activePath, route);
 
       if (params) {
         const target = routes[route];
 
-        // Если значение маршрута - это строка, выполняем редирект
         if (typeof target === "string") {
+          // При редиректе сохраняем или отбрасываем query по логике вашего приложения
+          // Здесь просто перенаправляем на чистый target
           navigate(target);
-
-          currentPath = target;
-
-          // Выходим из цикла for, чтобы начать поиск заново в цикле while
+          activePath = target;
           break;
         }
 
-        // Если это компонент, рендерим его как обычно
         const {
           component: Page,
           layout: Layout,
@@ -91,13 +107,17 @@ const Router = (props) => {
         if (isProtected && !isAuthenticated) {
           const loginRoute = "/login";
           navigate(loginRoute);
-          currentPath = loginRoute;
+          activePath = loginRoute;
           break;
         }
 
+        // Парсим query-параметры в объект
+        const queryParams = parseQueryParams(currentSearch || "");
+
+        // Передаем query в компонент отдельным пропсом
         return (
           <Layout>
-            <Page params={params} />
+            <Page params={params} query={queryParams} />
           </Layout>
         );
       }
