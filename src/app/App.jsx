@@ -1,9 +1,11 @@
 import AddTasksPage from "@/pages/AddTasksPage";
 import AnswersPage from "@/pages/AnswersPage";
 import BalancePage from "@/pages/BalancePage";
-import BenchmarkVersionPage from "@/pages/BenchmarkVersionPage/";
+import BenchmarkVersionPage from "@/pages/BenchmarkVersionPage";
 import BenchmarkVersionsPage from "@/pages/BenchmarkVersionsPage";
-import LeaderboardPage from "@/pages/LeaderboardPage/LeaderboardPage";
+import GuestAnswersPage from "@/pages/GuestAnswersPage";
+import GuestTaskPage from "@/pages/GuestTaskPage";
+import LeaderboardPage from "@/pages/LeaderboardPage";
 import LlmsPage from "@/pages/LlmsPage";
 import LoginPage from "@/pages/LoginPage";
 import PageNotFound from "@/pages/PageNotFound";
@@ -78,6 +80,16 @@ const App = () => {
     },
     "/leaderboard": {
       component: LeaderboardPage,
+      layout: GuestLayout,
+      isProtected: false,
+    },
+    "/leaderboard/benchmark-version/:benchmarkVersionId/llm-id/:llmId": {
+      component: GuestAnswersPage,
+      layout: GuestLayout,
+      isProtected: false,
+    },
+    "/leaderboard/benchmark-version/:benchmarkVersionId/task-id/:taskId": {
+      component: GuestTaskPage,
       layout: GuestLayout,
       isProtected: false,
     },

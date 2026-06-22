@@ -10,6 +10,7 @@ import { TasksContext, TasksProvider } from "@/entities/task";
 
 import Button from "@/shared/ui/Button";
 import Paginator from "@/shared/ui/Paginator";
+import navigate from "@/shared/utils/navigate";
 import sortByField from "@/shared/utils/sortByField";
 
 import styles from "./LeaderboardPage.module.css";
@@ -53,6 +54,7 @@ const LlmsRating = ({ benchmarkVersion }) => {
           <th>Место</th>
           <th>Модель</th>
           <th>Accuracy</th>
+          <th>Подробная информация</th>
         </tr>
       </thead>
       <tbody>
@@ -61,6 +63,17 @@ const LlmsRating = ({ benchmarkVersion }) => {
             <td>{index + 1}</td>
             <td>{llm.llm_name}</td>
             <td>{llm.accuracy}</td>
+            <td>
+              <Button
+                onClick={() => {
+                  navigate(
+                    `/leaderboard/benchmark-version/${benchmarkVersion.id}/llm-id/${llm.id}`,
+                  );
+                }}
+              >
+                Смотреть ответы
+              </Button>
+            </td>
           </tr>
         ))}
       </tbody>
@@ -99,7 +112,7 @@ const TasksRating = ({ benchmarkVersion }) => {
     return { ...task, rating: calculateRating(task.id) };
   });
 
-  const orderedRating = [...rating].sort(sortByField("rating", "asc"));
+  const orderedRating = [...rating].sort(sortByField("rating", "desc"));
 
   return (
     <table>
@@ -108,6 +121,7 @@ const TasksRating = ({ benchmarkVersion }) => {
           <th>Место</th>
           <th>Вопрос</th>
           <th>Количество правильных ответов</th>
+          <th>Подробная информация</th>
         </tr>
       </thead>
       <tbody>
@@ -116,6 +130,17 @@ const TasksRating = ({ benchmarkVersion }) => {
             <td>{index + 1}</td>
             <td>{task.question}</td>
             <td>{task.rating}</td>
+            <td>
+              <Button
+                onClick={() => {
+                  navigate(
+                    `/leaderboard/benchmark-version/${benchmarkVersion.id}/task-id/${task.id}`,
+                  );
+                }}
+              >
+                Смотреть ответы
+              </Button>
+            </td>
           </tr>
         ))}
       </tbody>
@@ -187,7 +212,7 @@ const ChildComponent = () => {
   return (
     <div className={styles.mainContainer}>
       <section className={styles.header}>
-        <span>Лидерборд</span>
+        <h2>Лидерборд</h2>
         <div className={styles.flexRowSpaceBetween}>
           <div className={styles.flexRow}>
             <div>Версия бенчмарка</div>

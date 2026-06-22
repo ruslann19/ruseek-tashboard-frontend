@@ -4,12 +4,14 @@ import tasksApi from "@/shared/api/tasks";
 
 const useTasks = () => {
   const [tasks, setTasks] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const loadedTasks = await tasksApi.getAll();
         setTasks(loadedTasks || []);
+        setIsLoading(false);
       } catch (error) {
         console.error("Ошибка при загрузке:", error);
       }
@@ -46,6 +48,7 @@ const useTasks = () => {
   return {
     tasks,
     setTasks,
+    isLoading,
     emptyListMessage,
     addTask,
     deleteTask,

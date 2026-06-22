@@ -29,9 +29,9 @@ const Header = ({ isAdmin }) => {
   };
 
   const guestContent = isAuthenticated ? (
-    <Button onClick={toAdmin}>Админ</Button>
+    <Button onClick={toAdmin}>Панель администратора</Button>
   ) : (
-    <Button onClick={toLogin}>Войти</Button>
+    <Button onClick={toLogin}>Войти в панель администратора</Button>
   );
 
   return (
