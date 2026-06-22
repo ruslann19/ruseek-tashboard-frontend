@@ -1,8 +1,8 @@
-# RuSeek TashBoard (Backend)
+# RuSeek TashBoard (Frontend)
 
 Репозиторий содержит клиентскую часть (фронтенд) для **RuSeek TashBoard** - обновляемого бенчмарка, предназначенного для оценки общих знаний больших языковых моделей (LLM).
 
-Основной репозиторий проекта: [ruslann19/ruseek-tashboard](https://github.com/ruslann19/ruseek-tashboard)
+Основной репозиторий проекта: [https://github.com/ruslann19/ruseek-tashboard](https://github.com/ruslann19/ruseek-tashboard)
 
 ---
 
