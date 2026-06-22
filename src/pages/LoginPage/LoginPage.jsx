@@ -45,7 +45,7 @@ const LoginPage = () => {
           event.preventDefault();
         }}
       >
-        <span>Вход в панель администратора</span>
+        <h2>Вход в панель администратора</h2>
 
         <div className={styles.flexContainer}>
           <Input
